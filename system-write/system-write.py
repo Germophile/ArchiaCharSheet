@@ -249,8 +249,8 @@ repeating_abilities = f'''\n  on("change:repeating_abilities:abilityType", funct
             $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
         }}
     }})
-}});'''
-html.insert(repeating_abilities_index+1,repeating_abilities)
+  }});'''
+html.insert(repeating_abilities_index+2,repeating_abilities)
 
 #making the filetext and writing it to a file
 filetext = ""
