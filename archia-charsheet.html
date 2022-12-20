@@ -110,48 +110,6 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   <input type="hidden" value="true" name="attr_editing" />
 
   <!--repeating_abilities code below this will be modified by script-->
-  on("change:repeating_abilities:abilityType", function() {
-    getAttrs(["repeating_abilities_abilityType"], function(values) {
-        var abilitySubTypes = {
-            "Attack":"Attack",
-"Augmentation":"Shield",
-"Cataclysm":"Destruction",
-"Communication":"Sending",
-"Creation":"Fabricate",
-"Divination":"Augury",
-"Druidism":"Floromancy",
-"Illusion":"Personal",
-"Magisprudence":"Magic Sense",
-"Maneuvers":"Exploits",
-"Psionics":"Telepathy",
-"Rejuvenation":"HP",
-"Scourge":"Against Skill Checks"
-        };
-        setAttrs({"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]});
-        $20('.abilitySubType').addClass("hidden");
-        if(values.repeating_abilities_abilityType.toLowerCase() != "attack") {
-            $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
-        }
-    })
-});
-on("change:repeating_abilities:abilitySource", function() {
-    getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {
-        var abilityTypes = {
-            "Divine":["Attack","Augmentation","Communication","Divination","Rejuvenation","Scourge"],
-"Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
-"Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
-"Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
-"Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
-        };
-        $20('.abilityType').addClass("hidden");
-        $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
-        if(!abilityTypes[values.repeating_abilities_abilitySource].includes(values.repeating_abilities_abilityType)) {
-            setAttrs({"abilityType":"Attack"});
-            setAttrs({"abilitySubType":"Attack"});
-            $20('.abilitySubType').addClass("hidden");
-        }
-    })
-  });
   <br>Source: <select name="attr_abilitySource" class ="edit hidden">
     <option value="None" selected="selected"></option>
     <option value="Divine">Divine</option>
@@ -413,16 +371,39 @@ on("change:repeating_abilities:abilitySource", function() {
       });
   });
 
-  on(\"change:repeating_abilities:abilitySource\", function() {
-
-  on("change:repeating_abilities:abilitySource", function() {
+  <!--Repeating_abilities script:-->
+  on("change:repeating_abilities:abilityType", function() {
+    getAttrs(["repeating_abilities_abilityType"], function(values) {
+        var abilitySubTypes = {
+            "Attack":"Attack",
+"Augmentation":"Shield",
+"Cataclysm":"Destruction",
+"Communication":"Sending",
+"Creation":"Fabricate",
+"Divination":"Augury",
+"Druidism":"Floromancy",
+"Illusion":"Personal",
+"Magisprudence":"Magic Sense",
+"Maneuvers":"Exploits",
+"Psionics":"Telepathy",
+"Rejuvenation":"HP",
+"Scourge":"Against Skill Checks"
+        };
+        setAttrs({"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]});
+        $20('.abilitySubType').addClass("hidden");
+        if(values.repeating_abilities_abilityType.toLowerCase() != "attack") {
+            $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
+        }
+    })
+});
+on("change:repeating_abilities:abilitySource", function() {
     getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {
         var abilityTypes = {
             "Divine":["Attack","Augmentation","Communication","Divination","Rejuvenation","Scourge"],
-            "Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
-            "Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
-            "Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
-            "Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
+"Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
+"Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
+"Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
+"Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
         };
         $20('.abilityType').addClass("hidden");
         $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
@@ -433,43 +414,7 @@ on("change:repeating_abilities:abilitySource", function() {
         }
     })
   });
-  
-  on("change:repeating_abilities:abilityType", function() {
-    getAttrs(["repeating_abilities_abilityType"], function(values) {
-        var abilitySubTypes = {
-            "Attack":"Attack",
-            "Augmentation":"Shield",
-            "Cataclysm":"Destruction",
-            "Communication":"Sending",
-            "Creation":"Fabricate",
-            "Divination":"Augury",
-            "Druidism":"Floromancy",
-            "Illusion":"Personal",
-            "Magisprudence":"Magic Sense",
-            "Maneuvers":"Exploits",
-            "Psionics":"Telepathy",
-            "Rejuvenation":"HP",
-            "Scourge":"vSkill Checks"
-        };
-        setAttrs({"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]});
-        $20('.abilitySubType').addClass("hidden");
-        if(values.repeating_abilities_abilityType.toLowerCase() != "attack") {
-            $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
-        }
-    })
-});
- 
-  on("clicked:repeating_abilities:edit", function(eventInfo) {
-    rowID = eventInfo.sourceAttribute.split('_')[2]
-    getAttrs(["repeating_abilities_abilityType","repeating_abilities_abilitySource","repeating_abilities_abilitySubType"], function(values) {
-        $20('.edit.' + values.repeating_abilities_abilityType.toLowerCase()).toggleClass("hidden");
-        $20('.edit.' + values.repeating_abilities_abilitySource.toLowerCase()).toggleClass("hidden");
-        $20('.edit.' + values.repeating_abilities_abilitySubType.toLowerCase()).toggleClass("hidden");
-        $20('.edit.abilitySource').toggleClass("hidden");
-    });
-});
-
-<!--/Repeating_abilities script-->
+  <!--/Repeating_abilities script-->
 
 </script>
 
@@ -485,6 +430,7 @@ on("change:repeating_abilities:abilitySource", function() {
     });
 });
 -->
+
 
 
 

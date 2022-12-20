@@ -187,11 +187,7 @@ html = html.split("\n")
 
 #write repeating_abilities html
 repeating_abilities_index = html.index("  <!--repeating_abilities code below this will be modified by script-->")
-for x in range(repeating_abilities_index+1,len(html)):
-    if(html[x] == "  <!--repeating_abilities code above this will be modified by script-->"):
-        del html[repeating_abilities_index+1:x]
-        break
-
+del html[repeating_abilities_index+1:html.index("  <!--repeating_abilities code above this will be modified by script-->")]
 repeating_abilities = "  <br>Source: <select name=\"attr_abilitySource\" class =\"edit hidden\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
 for key in sourceDict:
     repeating_abilities += "    <option value=\"" + key + "\">" + key + "</option>\n"
@@ -210,6 +206,8 @@ for ability in abilities:
 html.insert(repeating_abilities_index+1,repeating_abilities)
 
 #write repeating_abilities javascript
+repeating_abilities_index = html.index("  <!--Repeating_abilities script:-->")
+del html[repeating_abilities_index+1:html.index("  <!--/Repeating_abilities script-->")]
 sourceArray = ""
 for source in sourceDict:
     sourceArray += (f"\"{source}\":[\"{sourceDict[source].abilityTypes[0].name}\",\"{sourceDict[source].abilityTypes[1].name}\",\"{sourceDict[source].abilityTypes[2].name}\",\"{sourceDict[source].abilityTypes[3].name}\",\"{sourceDict[source].abilityTypes[4].name}\",\"{sourceDict[source].abilityTypes[5].name}\"],\n")
