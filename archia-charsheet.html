@@ -99,17 +99,60 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
 <h2>Abilities</h2>
 
 <fieldset class="repeating_abilities">
-
-  <h3><span name="attr_ability"></span></h3>
+  
+  <h3><span name="attr_ability"></span> <button class="editIcon" type="action" name="act_edit"></button></h3>
   Source: <span name="attr_abilitySource"></span><br>
   <span name="attr_abilityType"></span> (<span name="attr_abilitySubType"></span>)
 
-  <input name="attr_ability" title="" type="text" value="" class="edit"/>
-  <input type="hidden" value=0 name="attr_abilityAPcost" >
-  <input type="hidden" value=0 name="attr_abilitySPcost" >
+  <input name="attr_ability" title="" type="text" value="" class="edit hidden"/>
+  <input type="hidden" value=0 name="attr_abilityAPcost" />
+  <input type="hidden" value=0 name="attr_abilitySPcost" />
+  <input type="hidden" value="true" name="attr_editing" />
 
   <!--repeating_abilities code below this will be modified by script-->
-  <br>Source: <select name="attr_abilitySource" class ="edit">
+  on("change:repeating_abilities:abilityType", function() {
+    getAttrs(["repeating_abilities_abilityType"], function(values) {
+        var abilitySubTypes = {
+            "Attack":"Attack",
+"Augmentation":"Shield",
+"Cataclysm":"Destruction",
+"Communication":"Sending",
+"Creation":"Fabricate",
+"Divination":"Augury",
+"Druidism":"Floromancy",
+"Illusion":"Personal",
+"Magisprudence":"Magic Sense",
+"Maneuvers":"Exploits",
+"Psionics":"Telepathy",
+"Rejuvenation":"HP",
+"Scourge":"Against Skill Checks"
+        };
+        setAttrs({"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]});
+        $20('.abilitySubType').addClass("hidden");
+        if(values.repeating_abilities_abilityType.toLowerCase() != "attack") {
+            $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
+        }
+    })
+});
+on("change:repeating_abilities:abilitySource", function() {
+    getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {
+        var abilityTypes = {
+            "Divine":["Attack","Augmentation","Communication","Divination","Rejuvenation","Scourge"],
+"Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
+"Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
+"Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
+"Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
+        };
+        $20('.abilityType').addClass("hidden");
+        $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
+        if(!abilityTypes[values.repeating_abilities_abilitySource].includes(values.repeating_abilities_abilityType)) {
+            setAttrs({"abilityType":"Attack"});
+            setAttrs({"abilitySubType":"Attack"});
+            $20('.abilitySubType').addClass("hidden");
+        }
+    })
+  });
+  <br>Source: <select name="attr_abilitySource" class ="edit hidden">
     <option value="None" selected="selected"></option>
     <option value="Divine">Divine</option>
     <option value="Profane">Profane</option>
@@ -229,194 +272,219 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     </div>
 </rolltemplate>
 
-  <script type="text/worker">
-    on('clicked:roll', function() {
-        getAttrs(["attributeSelect","skillSelect","affinitySelect","Brawn","Finesse","Knowledge","Wisdom","skillSelect","Athleticism","Deduction","Empathy","Focus","Perception","Performance","Recognition","Skulduggery","Stealth","Divine","Profane","Arcane","Primeval","Mundane"], function(values) {
-            var name = "";
-            var rollstring = "";
-            const stats = ["attribute","skill","affinity"];
-    
-            for(var x in stats) {
-                if(values[stats[x]+"Select"].length > 1) {
-                    skillDie = values[values[stats[x]+"Select"]];
-                    if(name.length > 0) {
-                        name += "/";
-                        rollstring += "+";
-                    }
-                    name += values[stats[x]+"Select"];
-                    rollstring += "1d" + values[values[stats[x]+"Select"]];
-                }
-            }
-    
-            startRoll("&{template:test} {{name="+name+"}} {{roll1=[[" + rollstring + "]]}}", (results) => {
-                finishRoll(
-                    results.rollId
-                );
-            });
-        });
-    
-    });
-    
-    on('clicked:edit', function() {
-        $20('.editor').toggleClass("hidden");
-    });
-    
-    function changeAttr(attr) {
-        getAttrs([attr], function(values) {
-            const attrClass = '.' + attr.toLowerCase() + 'Button';
-            const dieArray = ["d4","d6","d8","d10","d12"];
-            for(var x in dieArray) $20(attrClass).removeClass(dieArray[x]);
-            $20(attrClass).addClass("d" + values[attr]);
-        });
-    }
-    
-    function attrSelect(type, attr) {
-        type = type + "Select";
-        getAttrs([type], function(values) {
-            if(values[type] == attr) setAttrs({[type]: ""});
-            else setAttrs({[type]: attr});
-        });
-    }
-    
-    on('change:brawn', function() {changeAttr('Brawn')});
-    on('change:finesse', function() {changeAttr('Finesse')});
-    on('change:knowledge', function() {changeAttr('Knowledge')});
-    on('change:wisdom', function() {changeAttr('Wisdom')});
-    
-    on('change:athleticism', function() {changeAttr('Athleticism')});
-    on('change:deduction', function() {changeAttr('Deduction')});
-    on('change:empathy', function() {changeAttr('Empathy')});
-    on('change:focus', function() {changeAttr('Focus')});
-    on('change:perception', function() {changeAttr('Perception')});
-    on('change:performance', function() {changeAttr('Performance')});
-    on('change:recognition', function() {changeAttr('Recognition')});
-    on('change:skulduggery', function() {changeAttr('Skulduggery')});
-    on('change:stealth', function() {changeAttr('Stealth')});
-    
-    on('change:divine', function() {changeAttr('Divine')});
-    on('change:profane', function() {changeAttr('Profane')});
-    on('change:arcane', function() {changeAttr('Arcane')});
-    on('change:primeval', function() {changeAttr('Primeval')});
-    on('change:mundane', function() {changeAttr('Mundane')});
-    
-    on('clicked:brawn/Die', function() {attrSelect("attribute","Brawn")});
-    on('clicked:finesse/Die', function() {attrSelect("attribute","Finesse")});
-    on('clicked:knowledge/Die', function() {attrSelect("attribute","Knowledge")});
-    on('clicked:wisdom/Die', function() {attrSelect("attribute","Wisdom")});
-    
-    on('clicked:athleticism/Die', function() {attrSelect("skill","Athleticism")});
-    on('clicked:deduction/Die', function() {attrSelect("skill","Deduction")});
-    on('clicked:empathy/Die', function() {attrSelect("skill","Empathy")});
-    on('clicked:focus/Die', function() {attrSelect("skill","Focus")});
-    on('clicked:perception/Die', function() {attrSelect("skill","Perception")});
-    on('clicked:performance/Die', function() {attrSelect("skill","Performance")});
-    on('clicked:recognition/Die', function() {attrSelect("skill","Recognition")});
-    on('clicked:skulduggery/Die', function() {attrSelect("skill","Skulduggery")});
-    on('clicked:stealth/Die', function() {attrSelect("skill","Stealth")});
-    
-    on('clicked:divine/Die', function() {attrSelect("affinity","Divine")});
-    on('clicked:profane/Die', function() {attrSelect("affinity","Profane")});
-    on('clicked:arcane/Die', function() {attrSelect("affinity","Arcane")});
-    on('clicked:primeval/Die', function() {attrSelect("affinity","Primeval")});
-    on('clicked:mundane/Die', function() {attrSelect("affinity","Mundane")});
-    
-    on('change:attributeSelect', function() {
-        getAttrs(["attributeSelect"], function(values) {
-            $20('.attrButton').removeClass("on");
-            $20('.attrButton').addClass("off");
-            var cssRef = '.' + values.attributeSelect.toLowerCase() + 'Button';
-            $20(cssRef).addClass("on");
-            $20(cssRef).removeClass("off");
-        });
-    });
-    
-    on('change:skillSelect', function() {
-        getAttrs(["skillSelect"], function(values) {
-            $20('.skillButton').removeClass("on");
-            $20('.skillButton').addClass("off");
-            var cssRef = '.' + values.skillSelect.toLowerCase() + 'Button';
-            $20(cssRef).addClass("on");
-            $20(cssRef).removeClass("off");
-        });
-    });
-    
-    on('change:affinitySelect', function() {
-        getAttrs(["affinitySelect"], function(values) {
-            $20('.affinityButton').removeClass("on");
-            $20('.affinityButton').addClass("off");
-            var cssRef = '.' + values.affinitySelect.toLowerCase() + 'Button';
-            $20(cssRef).addClass("on");
-            $20(cssRef).removeClass("off");
-        });
-    });
-            
-    on('sheet:opened', function(){
-        getAttrs(["attributeSelect","skillSelect","affinitySelect","Brawn","Finesse","Knowledge","Wisdom","Athleticism","Deduction","Empathy","Focus","Perception","Performance","Recognition","Skulduggery","Stealth","Divine","Profane","Arcane","Primeval","Mundane"], function(values) {
-            const dieArray = ["d4","d6","d8","d10","d12"];
-            const statArray = ["Brawn","Finesse","Knowledge","Wisdom","Athleticism","Deduction","Empathy","Focus","Perception","Performance","Recognition","Skulduggery","Stealth","Divine","Profane","Arcane","Primeval","Mundane"];
-            $20('.attrButton').removeClass("on");
-            $20('.attrButton').addClass("off");
-            for(var x in dieArray) $20('.attrButton').removeClass(dieArray[x]);
-            var cssRef = '.' + values.attributeSelect.toLowerCase() + 'Button';
-            $20(cssRef).addClass("on");
-            $20(cssRef).removeClass("off");
-            cssRef = '.' + values.skillSelect.toLowerCase() + 'Button';
-            $20(cssRef).addClass("on");
-            $20(cssRef).removeClass("off");
-            cssRef = '.' + values.affinitySelect.toLowerCase() + 'Button';
-            $20(cssRef).addClass("on");
-            $20(cssRef).removeClass("off");
-            for(var x in statArray) $20('.'+statArray[x].toLowerCase()+'Button').addClass("d" + values[statArray[x]]);
-        });
-    });
-
-    on("change:repeating_abilities:abilitySource", function() {
-      getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {
-          var abilityTypes = {
-              "Divine":["Attack","Augmentation","Communication","Divination","Rejuvenation","Scourge"],
-              "Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
-              "Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
-              "Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
-              "Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
-          };
-          $20('.abilityType').addClass("hidden");
-          $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
-          if(!abilityTypes[values.repeating_abilities_abilitySource].includes(values.repeating_abilities_abilityType)) {
-              setAttrs({"abilityType":"Attack"});
-              setAttrs({"abilitySubType":"Attack"});
-              $20('.abilitySubType').addClass("hidden");
+<script type="text/worker">
+  on('clicked:roll', function() {
+      getAttrs(["attributeSelect","skillSelect","affinitySelect","Brawn","Finesse","Knowledge","Wisdom","skillSelect","Athleticism","Deduction","Empathy","Focus","Perception","Performance","Recognition","Skulduggery","Stealth","Divine","Profane","Arcane","Primeval","Mundane"], function(values) {
+          var name = "";
+          var rollstring = "";
+          const stats = ["attribute","skill","affinity"];
+  
+          for(var x in stats) {
+              if(values[stats[x]+"Select"].length > 1) {
+                  skillDie = values[values[stats[x]+"Select"]];
+                  if(name.length > 0) {
+                      name += "/";
+                      rollstring += "+";
+                  }
+                  name += values[stats[x]+"Select"];
+                  rollstring += "1d" + values[values[stats[x]+"Select"]];
+              }
           }
-      })
-  })
+  
+          startRoll("&{template:test} {{name="+name+"}} {{roll1=[[" + rollstring + "]]}}", (results) => {
+              finishRoll(
+                  results.rollId
+              );
+          });
+      });
+  
+  });
+  
+  on('clicked:edit', function() {
+      $20('.editor').toggleClass("hidden");
+  });
+  
+  function changeAttr(attr) {
+      getAttrs([attr], function(values) {
+          const attrClass = '.' + attr.toLowerCase() + 'Button';
+          const dieArray = ["d4","d6","d8","d10","d12"];
+          for(var x in dieArray) $20(attrClass).removeClass(dieArray[x]);
+          $20(attrClass).addClass("d" + values[attr]);
+      });
+  }
+  
+  function attrSelect(type, attr) {
+      type = type + "Select";
+      getAttrs([type], function(values) {
+          if(values[type] == attr) setAttrs({[type]: ""});
+          else setAttrs({[type]: attr});
+      });
+  }
+  
+  on('change:brawn', function() {changeAttr('Brawn')});
+  on('change:finesse', function() {changeAttr('Finesse')});
+  on('change:knowledge', function() {changeAttr('Knowledge')});
+  on('change:wisdom', function() {changeAttr('Wisdom')});
+  
+  on('change:athleticism', function() {changeAttr('Athleticism')});
+  on('change:deduction', function() {changeAttr('Deduction')});
+  on('change:empathy', function() {changeAttr('Empathy')});
+  on('change:focus', function() {changeAttr('Focus')});
+  on('change:perception', function() {changeAttr('Perception')});
+  on('change:performance', function() {changeAttr('Performance')});
+  on('change:recognition', function() {changeAttr('Recognition')});
+  on('change:skulduggery', function() {changeAttr('Skulduggery')});
+  on('change:stealth', function() {changeAttr('Stealth')});
+  
+  on('change:divine', function() {changeAttr('Divine')});
+  on('change:profane', function() {changeAttr('Profane')});
+  on('change:arcane', function() {changeAttr('Arcane')});
+  on('change:primeval', function() {changeAttr('Primeval')});
+  on('change:mundane', function() {changeAttr('Mundane')});
+  
+  on('clicked:brawn/Die', function() {attrSelect("attribute","Brawn")});
+  on('clicked:finesse/Die', function() {attrSelect("attribute","Finesse")});
+  on('clicked:knowledge/Die', function() {attrSelect("attribute","Knowledge")});
+  on('clicked:wisdom/Die', function() {attrSelect("attribute","Wisdom")});
+  
+  on('clicked:athleticism/Die', function() {attrSelect("skill","Athleticism")});
+  on('clicked:deduction/Die', function() {attrSelect("skill","Deduction")});
+  on('clicked:empathy/Die', function() {attrSelect("skill","Empathy")});
+  on('clicked:focus/Die', function() {attrSelect("skill","Focus")});
+  on('clicked:perception/Die', function() {attrSelect("skill","Perception")});
+  on('clicked:performance/Die', function() {attrSelect("skill","Performance")});
+  on('clicked:recognition/Die', function() {attrSelect("skill","Recognition")});
+  on('clicked:skulduggery/Die', function() {attrSelect("skill","Skulduggery")});
+  on('clicked:stealth/Die', function() {attrSelect("skill","Stealth")});
+  
+  on('clicked:divine/Die', function() {attrSelect("affinity","Divine")});
+  on('clicked:profane/Die', function() {attrSelect("affinity","Profane")});
+  on('clicked:arcane/Die', function() {attrSelect("affinity","Arcane")});
+  on('clicked:primeval/Die', function() {attrSelect("affinity","Primeval")});
+  on('clicked:mundane/Die', function() {attrSelect("affinity","Mundane")});
+  
+  on('change:attributeSelect', function() {
+      getAttrs(["attributeSelect"], function(values) {
+          $20('.attrButton').removeClass("on");
+          $20('.attrButton').addClass("off");
+          var cssRef = '.' + values.attributeSelect.toLowerCase() + 'Button';
+          $20(cssRef).addClass("on");
+          $20(cssRef).removeClass("off");
+      });
+  });
+  
+  on('change:skillSelect', function() {
+      getAttrs(["skillSelect"], function(values) {
+          $20('.skillButton').removeClass("on");
+          $20('.skillButton').addClass("off");
+          var cssRef = '.' + values.skillSelect.toLowerCase() + 'Button';
+          $20(cssRef).addClass("on");
+          $20(cssRef).removeClass("off");
+      });
+  });
+  
+  on('change:affinitySelect', function() {
+      getAttrs(["affinitySelect"], function(values) {
+          $20('.affinityButton').removeClass("on");
+          $20('.affinityButton').addClass("off");
+          var cssRef = '.' + values.affinitySelect.toLowerCase() + 'Button';
+          $20(cssRef).addClass("on");
+          $20(cssRef).removeClass("off");
+      });
+  });
+          
+  on('sheet:opened', function(){
+      getAttrs(["attributeSelect","skillSelect","affinitySelect","Brawn","Finesse","Knowledge","Wisdom","Athleticism","Deduction","Empathy","Focus","Perception","Performance","Recognition","Skulduggery","Stealth","Divine","Profane","Arcane","Primeval","Mundane"], function(values) {
+          const dieArray = ["d4","d6","d8","d10","d12"];
+          const statArray = ["Brawn","Finesse","Knowledge","Wisdom","Athleticism","Deduction","Empathy","Focus","Perception","Performance","Recognition","Skulduggery","Stealth","Divine","Profane","Arcane","Primeval","Mundane"];
+          $20('.attrButton').removeClass("on");
+          $20('.attrButton').addClass("off");
+          for(var x in dieArray) $20('.attrButton').removeClass(dieArray[x]);
+          var cssRef = '.' + values.attributeSelect.toLowerCase() + 'Button';
+          $20(cssRef).addClass("on");
+          $20(cssRef).removeClass("off");
+          cssRef = '.' + values.skillSelect.toLowerCase() + 'Button';
+          $20(cssRef).addClass("on");
+          $20(cssRef).removeClass("off");
+          cssRef = '.' + values.affinitySelect.toLowerCase() + 'Button';
+          $20(cssRef).addClass("on");
+          $20(cssRef).removeClass("off");
+          for(var x in statArray) $20('.'+statArray[x].toLowerCase()+'Button').addClass("d" + values[statArray[x]]);
+      });
+  });
+
+  on(\"change:repeating_abilities:abilitySource\", function() {
+
+  on("change:repeating_abilities:abilitySource", function() {
+    getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {
+        var abilityTypes = {
+            "Divine":["Attack","Augmentation","Communication","Divination","Rejuvenation","Scourge"],
+            "Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
+            "Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
+            "Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
+            "Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
+        };
+        $20('.abilityType').addClass("hidden");
+        $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
+        if(!abilityTypes[values.repeating_abilities_abilitySource].includes(values.repeating_abilities_abilityType)) {
+            setAttrs({"abilityType":"Attack"});
+            setAttrs({"abilitySubType":"Attack"});
+            $20('.abilitySubType').addClass("hidden");
+        }
+    })
+  });
   
   on("change:repeating_abilities:abilityType", function() {
-      getAttrs(["repeating_abilities_abilityType"], function(values) {
-          var abilitySubTypes = {
-              "Attack":"Attack",
-              "Augmentation":"Shield",
-              "Cataclysm":"Destruction",
-              "Communication":"Sending",
-              "Creation":"Fabricate",
-              "Divination":"Augury",
-              "Druidism":"Floromancy",
-              "Illusion":"Personal",
-              "Magisprudence":"Magic Sense",
-              "Maneuvers":"Exploits",
-              "Psionics":"Telepathy",
-              "Rejuvenation":"HP",
-              "Scourge":"Against Skill Checks"
-          };
-          $20('.abilitySubType').addClass("hidden");
-          if(values.repeating_abilities_abilityType.toLowerCase() != "attack") {
-              $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
-          }
-          setAttrs({"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]});
-      })
-  })
+    getAttrs(["repeating_abilities_abilityType"], function(values) {
+        var abilitySubTypes = {
+            "Attack":"Attack",
+            "Augmentation":"Shield",
+            "Cataclysm":"Destruction",
+            "Communication":"Sending",
+            "Creation":"Fabricate",
+            "Divination":"Augury",
+            "Druidism":"Floromancy",
+            "Illusion":"Personal",
+            "Magisprudence":"Magic Sense",
+            "Maneuvers":"Exploits",
+            "Psionics":"Telepathy",
+            "Rejuvenation":"HP",
+            "Scourge":"vSkill Checks"
+        };
+        setAttrs({"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]});
+        $20('.abilitySubType').addClass("hidden");
+        if(values.repeating_abilities_abilityType.toLowerCase() != "attack") {
+            $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
+        }
+    })
+});
+ 
+  on("clicked:repeating_abilities:edit", function(eventInfo) {
+    rowID = eventInfo.sourceAttribute.split('_')[2]
+    getAttrs(["repeating_abilities_abilityType","repeating_abilities_abilitySource","repeating_abilities_abilitySubType"], function(values) {
+        $20('.edit.' + values.repeating_abilities_abilityType.toLowerCase()).toggleClass("hidden");
+        $20('.edit.' + values.repeating_abilities_abilitySource.toLowerCase()).toggleClass("hidden");
+        $20('.edit.' + values.repeating_abilities_abilitySubType.toLowerCase()).toggleClass("hidden");
+        $20('.edit.abilitySource').toggleClass("hidden");
+    });
+});
 
-    </script>
+<!--/Repeating_abilities script-->
+
+</script>
 
 
+<!--
+  on("clicked:repeating_abilities:edit", function(eventInfo) {
+    rowID = eventInfo.sourceAttribute.split('_')[2]
+    getAttrs(["repeating_abilities_abilityType","repeating_abilities_abilitySource","repeating_abilities_abilitySubType"], function(values) {
+        $20('.edit.' + values.repeating_abilities_abilityType.toLowerCase()).toggleClass("hidden");
+        $20('.edit.' + values.repeating_abilities_abilitySource.toLowerCase()).toggleClass("hidden");
+        $20('.edit.' + values.repeating_abilities_abilitySubType.toLowerCase()).toggleClass("hidden");
+        $20('.edit.abilitySource').toggleClass("hidden");
+    });
+});
+-->
 
 
 

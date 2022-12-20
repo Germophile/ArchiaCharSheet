@@ -9,12 +9,12 @@ table = gc.open_by_key("1Xx0MkkUTST5Th5Q6aNJObXq9fn5k5P0E8xQcO1HHeVw").sheet1.ge
 class Ability_Type:
     def __init__(self,name,d,f,a,p,m,description):
         self.name = name
-        self.sources = []
-        if(d == "TRUE"): self.sources.append("d")
-        if(f == "TRUE"): self.sources.append("f")
-        if(a == "TRUE"): self.sources.append("a")
-        if(p == "TRUE"): self.sources.append("p")
-        if(m == "TRUE"): self.sources.append("m")
+        self.sourceDict = []
+        if(d == "TRUE"): self.sourceDict.append("d")
+        if(f == "TRUE"): self.sourceDict.append("f")
+        if(a == "TRUE"): self.sourceDict.append("a")
+        if(p == "TRUE"): self.sourceDict.append("p")
+        if(m == "TRUE"): self.sourceDict.append("m")
         self.description = description
         self.subtypes = []
 
@@ -23,7 +23,7 @@ class Ability_Type:
 
     def print(self):
         string = self.name + " ("
-        for letter in self.sources: string += letter + ", "
+        for letter in self.sourceDict: string += letter + ", "
         string = string[:len(string)-2] + ")\n"
         if(len(self.description)>0): string += self.description + "\n"
         for subtype in self.subtypes:
@@ -32,7 +32,7 @@ class Ability_Type:
 
     def gmbinder(self):
         string = "#### " + self.name + " &nbsp;<span class=\"div-sh4\">"
-        for letter in self.sources: string += letter + " "
+        for letter in self.sourceDict: string += letter + " "
         string = string[:len(string)-1] + "</span>\n"
         if(len(self.description)>0): string += self.description + "\n"
         string += "___\n"
@@ -161,10 +161,10 @@ class Source:
         self.name = name
         self.abilityTypes = []
         for ability in abilities:
-            if letter in ability.sources:
+            if letter in ability.sourceDict:
                 self.abilityTypes.append(ability)
 
-sources = {
+sourceDict = {
     "Divine":Source("Divine","d",abilities),
     "Profane":Source("Profane","f",abilities),
     "Arcane":Source("Arcane","a",abilities),
@@ -172,11 +172,11 @@ sources = {
     "Mundane":Source("Mundane","m",abilities)
 }
 """ 
-sources["d"] = sources["Divine"]
-sources["f"] = sources["Profane"]
-sources["a"] = sources["Arcane"]
-sources["p"] = sources["Primeval"]
-sources["m"] = sources["Mundane"] """
+sourceDict["d"] = sourceDict["Divine"]
+sourceDict["f"] = sourceDict["Profane"]
+sourceDict["a"] = sourceDict["Arcane"]
+sourceDict["p"] = sourceDict["Primeval"]
+sourceDict["m"] = sourceDict["Mundane"] """
 
 f = open("../archia-charsheet.html")
 html = f.read()
@@ -192,13 +192,13 @@ for x in range(repeating_abilities_index+1,len(html)):
         del html[repeating_abilities_index+1:x]
         break
 
-repeating_abilities = "  <br>Source: <select name=\"attr_abilitySource\" class =\"edit\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
-for key in sources:
+repeating_abilities = "  <br>Source: <select name=\"attr_abilitySource\" class =\"edit hidden\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
+for key in sourceDict:
     repeating_abilities += "    <option value=\"" + key + "\">" + key + "</option>\n"
 repeating_abilities += "  </select>\n  <br>Ability Type: \n"
-for key in sources:
+for key in sourceDict:
     repeating_abilities += "  <select name=\"attr_abilityType\" class=\"abilityType " + key.lower() + " hidden edit\">\n"
-    for ability in sources[key].abilityTypes:
+    for ability in sourceDict[key].abilityTypes:
         repeating_abilities += "    <option value=\"" + ability.name + "\">" + ability.name + "</option>\n"
     repeating_abilities += "  </select>\n"
 repeating_abilities += "\n"
@@ -210,34 +210,48 @@ for ability in abilities:
 html.insert(repeating_abilities_index+1,repeating_abilities)
 
 #write repeating_abilities javascript
-repeating_abilities_index = html.index("    on(\"change:repeating_abilities:abilitySource\", function() {")
-for x in range(repeating_abilities_index+1,len(html)):
-    if(html[x] == "  })"):
-        del html[repeating_abilities_index+1:x]
-        break
-repeating_abilities = "      getAttrs([\"repeating_abilities_abilitySource\",\"repeating_abilities_abilityType\"], function(values) {\n          var abilityTypes = {\n"
-for key in sources:
-    repeating_abilities += "              \"" + key + "\":[\""
-    for ability in sources[key].abilityTypes:
-        repeating_abilities += ability.name + "\",\""
-    repeating_abilities = repeating_abilities[:len(repeating_abilities)-2] +"],\n"
-repeating_abilities = repeating_abilities[:len(repeating_abilities)-2] + "\n          };\n          $20('.abilityType').addClass(\"hidden\");\n          $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass(\"hidden\");\n          if(!abilityTypes[values.repeating_abilities_abilitySource].includes(values.repeating_abilities_abilityType)) {\n              setAttrs({\"abilityType\":\"Attack\"});\n              setAttrs({\"abilitySubType\":\"Attack\"});\n              $20('.abilitySubType').addClass(\"hidden\");\n          }\n      })"
+sourceArray = ""
+for source in sourceDict:
+    sourceArray += (f"\"{source}\":[\"{sourceDict[source].abilityTypes[0].name}\",\"{sourceDict[source].abilityTypes[1].name}\",\"{sourceDict[source].abilityTypes[2].name}\",\"{sourceDict[source].abilityTypes[3].name}\",\"{sourceDict[source].abilityTypes[4].name}\",\"{sourceDict[source].abilityTypes[5].name}\"],\n")
+sourceArray = sourceArray[:len(sourceArray)-2]
+repeating_abilities = f'''on("change:repeating_abilities:abilitySource", function() {{
+    getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {{
+        var abilityTypes = {{
+            {sourceArray}
+        }};
+        $20('.abilityType').addClass("hidden");
+        $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
+        if(!abilityTypes[values.repeating_abilities_abilitySource].includes(values.repeating_abilities_abilityType)) {{
+            setAttrs({{"abilityType":"Attack"}});
+            setAttrs({{"abilitySubType":"Attack"}});
+            $20('.abilitySubType').addClass("hidden");
+        }}
+    }})
+  }});'''
 html.insert(repeating_abilities_index+1,repeating_abilities)
 
-repeating_abilities_index = html.index("  on(\"change:repeating_abilities:abilityType\", function() {")
-for x in range(repeating_abilities_index+1,len(html)):
-    if(html[x] == "  })"):
-        del html[repeating_abilities_index+1:x]
-        break
-repeating_abilities = "      getAttrs([\"repeating_abilities_abilityType\"], function(values) {\n          var abilitySubTypes = {\n"
+abilityArray = ""
 oneCount = []
 for ability in abilities:
-    repeating_abilities += "              \"" + ability.name + "\":\"" + ability.subtypes[0].name + "\",\n"
+    abilityArray += (f"\"{ability.name}\":\"{ability.subtypes[0].name}\",\n")
     if(len(ability.subtypes) == 1): oneCount.append(ability)
-repeating_abilities = repeating_abilities[:len(repeating_abilities)-2] + "\n          };\n          $20('.abilitySubType').addClass(\"hidden\");\n          if("
-for ability in oneCount:
-    repeating_abilities += "values.repeating_abilities_abilityType.toLowerCase() != \"" + ability.name.lower() + "\" && "
-repeating_abilities = repeating_abilities[:len(repeating_abilities)-4] + ") {\n              $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass(\"hidden\");\n          }\n          setAttrs({\"abilitySubType\":abilitySubTypes[values.repeating_abilities_abilityType]});\n      })"
+abilityArray = abilityArray[:len(abilityArray)-2]
+andOnes = ""
+if(len(oneCount) > 1): 
+    for ability in oneCount[1:]: 
+        andOnes += f" && values.repeating_abilities_abilityType.toLowerCase() !=\"{abilities.name}\""
+repeating_abilities = f'''  on("change:repeating_abilities:abilityType", function() {{
+    getAttrs(["repeating_abilities_abilityType"], function(values) {{
+        var abilitySubTypes = {{
+            {abilityArray}
+        }};
+        setAttrs({{"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]}});
+        $20('.abilitySubType').addClass("hidden");
+        if(values.repeating_abilities_abilityType.toLowerCase() != "attack"{andOnes}) {{
+            $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
+        }}
+    }})
+}});'''
 html.insert(repeating_abilities_index+1,repeating_abilities)
 
 #making the filetext and writing it to a file
