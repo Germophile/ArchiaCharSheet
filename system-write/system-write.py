@@ -210,12 +210,12 @@ repeating_abilities_index = html.index("  <!--Repeating_abilities script:-->")
 del html[repeating_abilities_index+1:html.index("  <!--/Repeating_abilities script-->")]
 sourceArray = ""
 for source in sourceDict:
-    sourceArray += (f"\"{source}\":[\"{sourceDict[source].abilityTypes[0].name}\",\"{sourceDict[source].abilityTypes[1].name}\",\"{sourceDict[source].abilityTypes[2].name}\",\"{sourceDict[source].abilityTypes[3].name}\",\"{sourceDict[source].abilityTypes[4].name}\",\"{sourceDict[source].abilityTypes[5].name}\"],\n")
+    sourceArray += (f"            \"{source}\":[\"{sourceDict[source].abilityTypes[0].name}\",\"{sourceDict[source].abilityTypes[1].name}\",\"{sourceDict[source].abilityTypes[2].name}\",\"{sourceDict[source].abilityTypes[3].name}\",\"{sourceDict[source].abilityTypes[4].name}\",\"{sourceDict[source].abilityTypes[5].name}\"],\n")
 sourceArray = sourceArray[:len(sourceArray)-2]
 repeating_abilities = f'''\n  on("change:repeating_abilities:abilitySource", function() {{
     getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {{
         var abilityTypes = {{
-            {sourceArray}
+{sourceArray}
         }};
         $20('.abilityType').addClass("hidden");
         $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
@@ -241,7 +241,7 @@ if(len(oneCount) > 1):
 repeating_abilities = f'''\n  on("change:repeating_abilities:abilityType", function() {{
     getAttrs(["repeating_abilities_abilityType"], function(values) {{
         var abilitySubTypes = {{
-            {abilityArray}
+{abilityArray}
         }};
         setAttrs({{"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]}});
         $20('.abilitySubType').addClass("hidden");

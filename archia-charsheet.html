@@ -376,7 +376,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   on("change:repeating_abilities:abilityType", function() {
     getAttrs(["repeating_abilities_abilityType"], function(values) {
         var abilitySubTypes = {
-                        "Attack":"Attack",
+            "Attack":"Attack",
             "Augmentation":"Shield",
             "Cataclysm":"Destruction",
             "Communication":"Sending",
@@ -402,10 +402,10 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {
         var abilityTypes = {
             "Divine":["Attack","Augmentation","Communication","Divination","Rejuvenation","Scourge"],
-"Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
-"Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
-"Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
-"Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
+            "Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
+            "Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
+            "Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
+            "Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
         };
         $20('.abilityType').addClass("hidden");
         $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
@@ -432,6 +432,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     });
 });
 -->
+
 
 
 
