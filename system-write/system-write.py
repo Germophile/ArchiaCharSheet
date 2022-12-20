@@ -231,7 +231,7 @@ html.insert(repeating_abilities_index+1,repeating_abilities)
 abilityArray = ""
 oneCount = []
 for ability in abilities:
-    abilityArray += (f"\"{ability.name}\":\"{ability.subtypes[0].name}\",\n")
+    abilityArray += (f"            \"{ability.name}\":\"{ability.subtypes[0].name}\",\n")
     if(len(ability.subtypes) == 1): oneCount.append(ability)
 abilityArray = abilityArray[:len(abilityArray)-2]
 andOnes = ""

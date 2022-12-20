@@ -375,19 +375,19 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   on("change:repeating_abilities:abilityType", function() {
     getAttrs(["repeating_abilities_abilityType"], function(values) {
         var abilitySubTypes = {
-            "Attack":"Attack",
-"Augmentation":"Shield",
-"Cataclysm":"Destruction",
-"Communication":"Sending",
-"Creation":"Fabricate",
-"Divination":"Augury",
-"Druidism":"Floromancy",
-"Illusion":"Personal",
-"Magisprudence":"Magic Sense",
-"Maneuvers":"Exploits",
-"Psionics":"Telepathy",
-"Rejuvenation":"HP",
-"Scourge":"Against Skill Checks"
+                        "Attack":"Attack",
+            "Augmentation":"Shield",
+            "Cataclysm":"Destruction",
+            "Communication":"Sending",
+            "Creation":"Fabricate",
+            "Divination":"Augury",
+            "Druidism":"Floromancy",
+            "Illusion":"Personal",
+            "Magisprudence":"Magic Sense",
+            "Maneuvers":"Exploits",
+            "Psionics":"Telepathy",
+            "Rejuvenation":"HP",
+            "Scourge":"Against Skill Checks"
         };
         setAttrs({"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]});
         $20('.abilitySubType').addClass("hidden");
@@ -430,6 +430,7 @@ on("change:repeating_abilities:abilitySource", function() {
     });
 });
 -->
+
 
 
 
