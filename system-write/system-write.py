@@ -193,13 +193,13 @@ for key in sourceDict:
     repeating_abilities += "    <option value=\"" + key + "\">" + key + "</option>\n"
 repeating_abilities += "  </select>\n  <br>Ability Type: \n"
 for key in sourceDict:
-    repeating_abilities += "  <select name=\"attr_abilityType\" class=\"abilityType " + key.lower() + " hidden edit\">\n"
+    repeating_abilities += "  <select name=\"attr_abilityType" + key + "\" class=\"abilityType " + key.lower() + " hidden edit\">\n"
     for ability in sourceDict[key].abilityTypes:
         repeating_abilities += "    <option value=\"" + ability.name + "\">" + ability.name + "</option>\n"
     repeating_abilities += "  </select>\n"
 repeating_abilities += "\n"
 for ability in abilities:
-    repeating_abilities += "  <select name=\"attr_abilitySubType\" class =\"abilitySubType " + ability.name.lower() + " hidden edit\">\n"
+    repeating_abilities += "  <select name=\"attr_abilitySubType" + ability.name + "\" class =\"abilitySubType " + ability.name.lower() + " hidden edit\">\n"
     for subtype in ability.subtypes:
         repeating_abilities += "    <option value=\"" + subtype.name + "\">" + subtype.name + "</option>\n"
     repeating_abilities += "  </select>\n"
