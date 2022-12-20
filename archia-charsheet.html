@@ -372,6 +372,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   });
 
   <!--Repeating_abilities script:-->
+
   on("change:repeating_abilities:abilityType", function() {
     getAttrs(["repeating_abilities_abilityType"], function(values) {
         var abilitySubTypes = {
@@ -396,7 +397,8 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
         }
     })
 });
-on("change:repeating_abilities:abilitySource", function() {
+
+  on("change:repeating_abilities:abilitySource", function() {
     getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType"], function(values) {
         var abilityTypes = {
             "Divine":["Attack","Augmentation","Communication","Divination","Rejuvenation","Scourge"],
@@ -430,6 +432,7 @@ on("change:repeating_abilities:abilitySource", function() {
     });
 });
 -->
+
 
 
 
