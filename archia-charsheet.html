@@ -112,7 +112,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   <input type="hidden" value="true" name="attr_editing" />
 
   <!--repeating_abilities code below this will be modified by script-->
-  <br>Source: <select name="attr_abilitySource" class ="edit hidden">
+  <br>Source: <select name="attr_abilitySource" class ="edit">
     <option value="None" selected="selected"></option>
     <option value="Divine">Divine</option>
     <option value="Profane">Profane</option>
@@ -121,7 +121,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Mundane">Mundane</option>
   </select>
   <br>Ability Type: 
-  <select name="attr_abilityTypeDivine" class="abilityType divine hidden edit">
+  <select name="attr_abilityTypeDivine" class="abilityType divine edit">
     <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Augmentation">Augmentation</option>
@@ -130,7 +130,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Rejuvenation">Rejuvenation</option>
     <option value="Scourge">Scourge</option>
   </select>
-  <select name="attr_abilityTypeProfane" class="abilityType profane hidden edit">
+  <select name="attr_abilityTypeProfane" class="abilityType profane edit">
     <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Cataclysm">Cataclysm</option>
@@ -139,7 +139,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Psionics">Psionics</option>
     <option value="Scourge">Scourge</option>
   </select>
-  <select name="attr_abilityTypeArcane" class="abilityType arcane hidden edit">
+  <select name="attr_abilityTypeArcane" class="abilityType arcane edit">
     <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Augmentation">Augmentation</option>
@@ -148,7 +148,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Illusion">Illusion</option>
     <option value="Magisprudence">Magisprudence</option>
   </select>
-  <select name="attr_abilityTypePrimeval" class="abilityType primeval hidden edit">
+  <select name="attr_abilityTypePrimeval" class="abilityType primeval edit">
     <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Augmentation">Augmentation</option>
@@ -157,7 +157,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Druidism">Druidism</option>
     <option value="Rejuvenation">Rejuvenation</option>
   </select>
-  <select name="attr_abilityTypeMundane" class="abilityType mundane hidden edit">
+  <select name="attr_abilityTypeMundane" class="abilityType mundane edit">
     <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Cataclysm">Cataclysm</option>
@@ -167,66 +167,66 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Rejuvenation">Rejuvenation</option>
   </select>
 
-  <select name="attr_abilitySubTypeAttack" class ="abilitySubType attack hidden edit">
+  <select name="attr_abilitySubTypeAttack" class ="abilitySubType attack edit">
     <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
   </select>
-  <select name="attr_abilitySubTypeAugmentation" class ="abilitySubType augmentation hidden edit">
+  <select name="attr_abilitySubTypeAugmentation" class ="abilitySubType augmentation edit">
     <option value="None" selected="selected"></option>
     <option value="Shield">Shield</option>
     <option value="Buff">Buff</option>
   </select>
-  <select name="attr_abilitySubTypeCataclysm" class ="abilitySubType cataclysm hidden edit">
+  <select name="attr_abilitySubTypeCataclysm" class ="abilitySubType cataclysm edit">
     <option value="None" selected="selected"></option>
     <option value="Destruction">Destruction</option>
     <option value="Suppression">Suppression</option>
   </select>
-  <select name="attr_abilitySubTypeCommunication" class ="abilitySubType communication hidden edit">
+  <select name="attr_abilitySubTypeCommunication" class ="abilitySubType communication edit">
     <option value="None" selected="selected"></option>
     <option value="Sending">Sending</option>
     <option value="Comprehension">Comprehension</option>
   </select>
-  <select name="attr_abilitySubTypeCreation" class ="abilitySubType creation hidden edit">
+  <select name="attr_abilitySubTypeCreation" class ="abilitySubType creation edit">
     <option value="None" selected="selected"></option>
     <option value="Fabricate">Fabricate</option>
     <option value="Imbue">Imbue</option>
   </select>
-  <select name="attr_abilitySubTypeDivination" class ="abilitySubType divination hidden edit">
+  <select name="attr_abilitySubTypeDivination" class ="abilitySubType divination edit">
     <option value="None" selected="selected"></option>
     <option value="Augury">Augury</option>
     <option value="Scrying">Scrying</option>
   </select>
-  <select name="attr_abilitySubTypeDruidism" class ="abilitySubType druidism hidden edit">
+  <select name="attr_abilitySubTypeDruidism" class ="abilitySubType druidism edit">
     <option value="None" selected="selected"></option>
     <option value="Floromancy">Floromancy</option>
     <option value="Faunomancy">Faunomancy</option>
   </select>
-  <select name="attr_abilitySubTypeIllusion" class ="abilitySubType illusion hidden edit">
+  <select name="attr_abilitySubTypeIllusion" class ="abilitySubType illusion edit">
     <option value="None" selected="selected"></option>
     <option value="Personal">Personal</option>
     <option value="Projected">Projected</option>
   </select>
-  <select name="attr_abilitySubTypeMagisprudence" class ="abilitySubType magisprudence hidden edit">
+  <select name="attr_abilitySubTypeMagisprudence" class ="abilitySubType magisprudence edit">
     <option value="None" selected="selected"></option>
     <option value="Magic Sense">Magic Sense</option>
     <option value="Teleportation">Teleportation</option>
   </select>
-  <select name="attr_abilitySubTypeManeuvers" class ="abilitySubType maneuvers hidden edit">
+  <select name="attr_abilitySubTypeManeuvers" class ="abilitySubType maneuvers edit">
     <option value="None" selected="selected"></option>
     <option value="Exploits">Exploits</option>
     <option value="Stunts">Stunts</option>
   </select>
-  <select name="attr_abilitySubTypePsionics" class ="abilitySubType psionics hidden edit">
+  <select name="attr_abilitySubTypePsionics" class ="abilitySubType psionics edit">
     <option value="None" selected="selected"></option>
     <option value="Telepathy">Telepathy</option>
     <option value="Telekinesis">Telekinesis</option>
   </select>
-  <select name="attr_abilitySubTypeRejuvenation" class ="abilitySubType rejuvenation hidden edit">
+  <select name="attr_abilitySubTypeRejuvenation" class ="abilitySubType rejuvenation edit">
     <option value="None" selected="selected"></option>
     <option value="HP">HP</option>
     <option value="Mild Conditions">Mild Conditions</option>
   </select>
-  <select name="attr_abilitySubTypeScourge" class ="abilitySubType scourge hidden edit">
+  <select name="attr_abilitySubTypeScourge" class ="abilitySubType scourge edit">
     <option value="None" selected="selected"></option>
     <option value="Against Skill Checks">Against Skill Checks</option>
     <option value="Status Condition">Status Condition</option>
@@ -543,6 +543,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     });
 });
 -->
+
 
 
 
