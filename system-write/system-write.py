@@ -256,17 +256,17 @@ repeating_abilities = ""
 for source in sourceDict:
     repeating_abilities += f'''  on("change:repeating_abilities:abilityType{source}", function() {{
     getAttrs(["repeating_abilities_abilityType{source}"], function(values) {{
-        setAttrs({{"abilityType":values.repeating_abilities_abilityType{source}}})
-    }})
-  }})
-    '''
+        setAttrs({{"abilityType":values.repeating_abilities_abilityType{source}}});
+    }});
+  }});
+'''
 for ability in abilities:
     repeating_abilities += f'''  on("change:repeating_abilities:abilityType{ability.name}", function() {{
     getAttrs(["repeating_abilities_abilityType{ability.name}"], function(values) {{
-        setAttrs({{"abilityType":values.repeating_abilities_abilityType{ability.name}}})
-    }})
-  }})
-    '''
+        setAttrs({{"abilityType":values.repeating_abilities_abilityType{ability.name}}});
+    }});
+  }});
+'''
 html.insert(repeating_abilities_index+3,repeating_abilities)
 
 #making the filetext and writing it to a file
