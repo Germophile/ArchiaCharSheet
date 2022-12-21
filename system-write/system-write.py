@@ -220,8 +220,8 @@ repeating_abilities = f'''\n  on("change:repeating_abilities:abilitySource", fun
         $20('.abilityType').addClass("hidden");
         $20('.' + values.repeating_abilities_abilitySource.toLowerCase()).removeClass("hidden");
         if(!abilityTypes[values.repeating_abilities_abilitySource].includes(values.repeating_abilities_abilityType)) {{
-            setAttrs({{"abilityType":"Attack"}});
-            setAttrs({{"abilitySubType":"Attack"}});
+            setAttrs({{"repeating_abilities_abilityType":"Attack"}});
+            setAttrs({{"repeating_abilities_abilitySubType":"Attack"}});
             $20('.abilitySubType').addClass("hidden");
         }}
     }})
@@ -243,7 +243,7 @@ repeating_abilities = f'''\n  on("change:repeating_abilities:abilityType", funct
         var abilitySubTypes = {{
 {abilityArray}
         }};
-        setAttrs({{"abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]}});
+        setAttrs({{"repeating_abilities_abilitySubType":abilitySubTypes[values.repeating_abilities_abilityType]}});
         $20('.abilitySubType').addClass("hidden");
         if(values.repeating_abilities_abilityType.toLowerCase() != "attack"{andOnes}) {{
             $20('.' + values.repeating_abilities_abilityType.toLowerCase()).removeClass("hidden");
@@ -256,14 +256,14 @@ repeating_abilities = ""
 for source in sourceDict:
     repeating_abilities += f'''  on("change:repeating_abilities:abilityType{source}", function() {{
     getAttrs(["repeating_abilities_abilityType{source}"], function(values) {{
-        setAttrs({{"abilityType":values.repeating_abilities_abilityType{source}}});
+      setAttrs({{"repeating_abilities_abilityType":values.repeating_abilities_abilityType{source}}});
     }});
   }});
 '''
 for ability in abilities:
     repeating_abilities += f'''  on("change:repeating_abilities:abilityType{ability.name}", function() {{
     getAttrs(["repeating_abilities_abilityType{ability.name}"], function(values) {{
-        setAttrs({{"abilityType":values.repeating_abilities_abilityType{ability.name}}});
+      setAttrs({{"repeating_abilities_abilityType":values.repeating_abilities_abilityType{ability.name}}});
     }});
   }});
 '''
