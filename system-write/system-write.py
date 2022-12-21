@@ -193,13 +193,13 @@ for key in sourceDict:
     repeating_abilities += "    <option value=\"" + key + "\">" + key + "</option>\n"
 repeating_abilities += "  </select>\n  <br>Ability Type: \n"
 for key in sourceDict:
-    repeating_abilities += "  <select name=\"attr_abilityType" + key + "\" class=\"abilityType " + key.lower() + " hidden edit\">\n"
+    repeating_abilities += "  <select name=\"attr_abilityType" + key + "\" class=\"abilityType " + key.lower() + " hidden edit\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
     for ability in sourceDict[key].abilityTypes:
         repeating_abilities += "    <option value=\"" + ability.name + "\">" + ability.name + "</option>\n"
     repeating_abilities += "  </select>\n"
 repeating_abilities += "\n"
 for ability in abilities:
-    repeating_abilities += "  <select name=\"attr_abilitySubType" + ability.name + "\" class =\"abilitySubType " + ability.name.lower() + " hidden edit\">\n"
+    repeating_abilities += "  <select name=\"attr_abilitySubType" + ability.name + "\" class =\"abilitySubType " + ability.name.lower() + " hidden edit\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
     for subtype in ability.subtypes:
         repeating_abilities += "    <option value=\"" + subtype.name + "\">" + subtype.name + "</option>\n"
     repeating_abilities += "  </select>\n"
@@ -251,6 +251,25 @@ repeating_abilities = f'''\n  on("change:repeating_abilities:abilityType", funct
     }})
   }});'''
 html.insert(repeating_abilities_index+2,repeating_abilities)
+
+repeating_abilities = ""
+for source in sourceDict:
+    repeating_abilities += f'''\n
+  on("change:repeating_abilities:abilityType{source}", function() {{
+    getAttrs(["repeating_abilities_abilityType{source}"], function(values) {{
+        setAttrs({{"abilityType":values.repeating_abilities_abilityType{source}}})
+    }})
+  }})
+    '''
+for ability in abilities:
+    repeating_abilities += f'''\n
+  on("change:repeating_abilities:abilityType{ability.name}", function() {{
+    getAttrs(["repeating_abilities_abilityType{ability.name}"], function(values) {{
+        setAttrs({{"abilityType":values.repeating_abilities_abilityType{ability.name}}})
+    }})
+  }})
+    '''
+html.insert(repeating_abilities_index+3,repeating_abilities)
 
 #making the filetext and writing it to a file
 filetext = ""

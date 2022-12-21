@@ -107,8 +107,8 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   <input name="attr_ability" title="" type="text" value="" class="edit hidden"/>
   <input type="hidden" value=0 name="attr_abilityAPcost" />
   <input type="hidden" value=0 name="attr_abilitySPcost" />
-  <input type="hidden" value="Attack" name="attr_abilityType" />
-  <input type="hidden" value="Attack" name="attr_abilitySubType" />
+  <input type="hidden" value="" name="attr_abilityType" />
+  <input type="hidden" value="" name="attr_abilitySubType" />
   <input type="hidden" value="true" name="attr_editing" />
 
   <!--repeating_abilities code below this will be modified by script-->
@@ -122,6 +122,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   </select>
   <br>Ability Type: 
   <select name="attr_abilityTypeDivine" class="abilityType divine hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Augmentation">Augmentation</option>
     <option value="Communication">Communication</option>
@@ -130,6 +131,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Scourge">Scourge</option>
   </select>
   <select name="attr_abilityTypeProfane" class="abilityType profane hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Cataclysm">Cataclysm</option>
     <option value="Communication">Communication</option>
@@ -138,6 +140,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Scourge">Scourge</option>
   </select>
   <select name="attr_abilityTypeArcane" class="abilityType arcane hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Augmentation">Augmentation</option>
     <option value="Communication">Communication</option>
@@ -146,6 +149,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Magisprudence">Magisprudence</option>
   </select>
   <select name="attr_abilityTypePrimeval" class="abilityType primeval hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Augmentation">Augmentation</option>
     <option value="Cataclysm">Cataclysm</option>
@@ -154,6 +158,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <option value="Rejuvenation">Rejuvenation</option>
   </select>
   <select name="attr_abilityTypeMundane" class="abilityType mundane hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
     <option value="Cataclysm">Cataclysm</option>
     <option value="Communication">Communication</option>
@@ -163,53 +168,66 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   </select>
 
   <select name="attr_abilitySubTypeAttack" class ="abilitySubType attack hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Attack">Attack</option>
   </select>
   <select name="attr_abilitySubTypeAugmentation" class ="abilitySubType augmentation hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Shield">Shield</option>
     <option value="Buff">Buff</option>
   </select>
   <select name="attr_abilitySubTypeCataclysm" class ="abilitySubType cataclysm hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Destruction">Destruction</option>
     <option value="Suppression">Suppression</option>
   </select>
   <select name="attr_abilitySubTypeCommunication" class ="abilitySubType communication hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Sending">Sending</option>
     <option value="Comprehension">Comprehension</option>
   </select>
   <select name="attr_abilitySubTypeCreation" class ="abilitySubType creation hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Fabricate">Fabricate</option>
     <option value="Imbue">Imbue</option>
   </select>
   <select name="attr_abilitySubTypeDivination" class ="abilitySubType divination hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Augury">Augury</option>
     <option value="Scrying">Scrying</option>
   </select>
   <select name="attr_abilitySubTypeDruidism" class ="abilitySubType druidism hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Floromancy">Floromancy</option>
     <option value="Faunomancy">Faunomancy</option>
   </select>
   <select name="attr_abilitySubTypeIllusion" class ="abilitySubType illusion hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Personal">Personal</option>
     <option value="Projected">Projected</option>
   </select>
   <select name="attr_abilitySubTypeMagisprudence" class ="abilitySubType magisprudence hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Magic Sense">Magic Sense</option>
     <option value="Teleportation">Teleportation</option>
   </select>
   <select name="attr_abilitySubTypeManeuvers" class ="abilitySubType maneuvers hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Exploits">Exploits</option>
     <option value="Stunts">Stunts</option>
   </select>
   <select name="attr_abilitySubTypePsionics" class ="abilitySubType psionics hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Telepathy">Telepathy</option>
     <option value="Telekinesis">Telekinesis</option>
   </select>
   <select name="attr_abilitySubTypeRejuvenation" class ="abilitySubType rejuvenation hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="HP">HP</option>
     <option value="Mild Conditions">Mild Conditions</option>
   </select>
   <select name="attr_abilitySubTypeScourge" class ="abilitySubType scourge hidden edit">
+    <option value="None" selected="selected"></option>
     <option value="Against Skill Checks">Against Skill Checks</option>
     <option value="Status Condition">Status Condition</option>
   </select>
@@ -418,6 +436,133 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
         }
     })
   });
+
+
+  on("change:repeating_abilities:abilityTypeDivine", function() {
+    getAttrs(["repeating_abilities_abilityTypeDivine"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeDivine})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeProfane", function() {
+    getAttrs(["repeating_abilities_abilityTypeProfane"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeProfane})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeArcane", function() {
+    getAttrs(["repeating_abilities_abilityTypeArcane"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeArcane})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypePrimeval", function() {
+    getAttrs(["repeating_abilities_abilityTypePrimeval"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypePrimeval})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeMundane", function() {
+    getAttrs(["repeating_abilities_abilityTypeMundane"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeMundane})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeAttack", function() {
+    getAttrs(["repeating_abilities_abilityTypeAttack"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeAttack})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeAugmentation", function() {
+    getAttrs(["repeating_abilities_abilityTypeAugmentation"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeAugmentation})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeCataclysm", function() {
+    getAttrs(["repeating_abilities_abilityTypeCataclysm"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeCataclysm})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeCommunication", function() {
+    getAttrs(["repeating_abilities_abilityTypeCommunication"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeCommunication})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeCreation", function() {
+    getAttrs(["repeating_abilities_abilityTypeCreation"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeCreation})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeDivination", function() {
+    getAttrs(["repeating_abilities_abilityTypeDivination"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeDivination})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeDruidism", function() {
+    getAttrs(["repeating_abilities_abilityTypeDruidism"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeDruidism})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeIllusion", function() {
+    getAttrs(["repeating_abilities_abilityTypeIllusion"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeIllusion})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeMagisprudence", function() {
+    getAttrs(["repeating_abilities_abilityTypeMagisprudence"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeMagisprudence})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeManeuvers", function() {
+    getAttrs(["repeating_abilities_abilityTypeManeuvers"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeManeuvers})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypePsionics", function() {
+    getAttrs(["repeating_abilities_abilityTypePsionics"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypePsionics})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeRejuvenation", function() {
+    getAttrs(["repeating_abilities_abilityTypeRejuvenation"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeRejuvenation})
+    })
+  })
+    
+
+  on("change:repeating_abilities:abilityTypeScourge", function() {
+    getAttrs(["repeating_abilities_abilityTypeScourge"], function(values) {
+        setAttrs({"abilityType":values.repeating_abilities_abilityTypeScourge})
+    })
+  })
+    
   <!--/Repeating_abilities script-->
 
 </script>
@@ -434,6 +579,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     });
 });
 -->
+
 
 
 
