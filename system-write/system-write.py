@@ -261,9 +261,9 @@ for source in sourceDict:
   }});
 '''
 for ability in abilities:
-    repeating_abilities += f'''  on("change:repeating_abilities:abilityType{ability.name}", function() {{
-    getAttrs(["repeating_abilities_abilityType{ability.name}"], function(values) {{
-      setAttrs({{"repeating_abilities_abilityType":values.repeating_abilities_abilityType{ability.name}}});
+    repeating_abilities += f'''  on("change:repeating_abilities:abilitySubType{ability.name}", function() {{
+    getAttrs(["repeating_abilities_abilitySubType{ability.name}"], function(values) {{
+      setAttrs({{"repeating_abilities_abilitySubType":values.repeating_abilities_abilitySubType{ability.name}}});
     }});
   }});
 '''
