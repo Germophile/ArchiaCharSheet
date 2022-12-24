@@ -100,30 +100,30 @@
     margin-top: 0px;
 }
 
-.charsheet  input.editing[value="false"] ~ div.editor {
-    display: none
+.charsheet {
+    input.editing[value="false"] ~ div.editor {
+        display: none
+    }
+    
+    select.abilitySource:not([value="Divine"]) ~ span.divine {
+        display: none
+    }
+    
+    
+    select.abilitySource:not([value="Profane"]) ~ span.profane {
+        display: none
+    }
+    
+    select.abilitySource:not([value="Arcane"]) ~ span.arcane {
+        display: none
+    }
+    
+    select.abilitySource:not([value="Primeval"]) ~ span.primeval {
+        display: none
+    }
+    
+    select.abilitySource:not([value="Mundane"]) ~ span.mundane {
+        display: none
+    }
 }
 
-.charsheet  input.source:not([value="divine"]) ~ div.editor > span.divine {
-    display: none
-}
-
-.charsheet  input.source:not([value="profane"]) ~ div.editor > span.profane {
-    display: none
-}
-
-.charsheet  input.source:not([value="arcane"]) ~ div.editor > span.arcane {
-    display: none
-}
-
-.charsheet  input.source:not([value="primeval"]) ~ div.editor > span.primeval {
-    display: none
-}
-
-.charsheet  input.source:not([value="mundane"]) ~ div.editor > span.mundane {
-    display: none
-}
-
-.charsheet  input.type:not([value="Augmentation"]) ~ div.editor > span.Augmentation {
-    display: none
-}
