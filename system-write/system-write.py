@@ -188,21 +188,21 @@ html = html.split("\n")
 #write repeating_abilities html
 repeating_abilities_index = html.index("  <!--repeating_abilities code below this will be modified by script-->")
 del html[repeating_abilities_index+1:html.index("  <!--repeating_abilities code above this will be modified by script-->")]
-repeating_abilities = "  <br>Source: <select name=\"attr_abilitySource\" class =\"edit\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
+repeating_abilities = "  <br>Source: <select name=\"attr_select-source\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
 for key in sourceDict:
     repeating_abilities += "    <option value=\"" + key + "\">" + key + "</option>\n"
 repeating_abilities += "  </select>\n  <br>Ability Type: \n"
 for key in sourceDict:
-    repeating_abilities += "  <select name=\"attr_abilityType" + key + "\" class=\"abilityType " + key.lower() + " hidden edit\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
+    repeating_abilities += "    <span class=\"" + key + "\">\n        <select name=\"attr_ability-type" + key + "\" class=\"abilityType " + key.lower() + "\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
     for ability in sourceDict[key].abilityTypes:
-        repeating_abilities += "    <option value=\"" + ability.name + "\">" + ability.name + "</option>\n"
-    repeating_abilities += "  </select>\n"
+        repeating_abilities += "            <option value=\"" + ability.name + "\">" + ability.name + "</option>\n"
+    repeating_abilities += "        </select>\n    </span>\n"
 repeating_abilities += "\n"
 for ability in abilities:
-    repeating_abilities += "  <select name=\"attr_abilitySubType" + ability.name + "\" class =\"abilitySubType " + ability.name.lower() + " hidden edit\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
+    repeating_abilities += "    <span class=\"" + ability.name + "\">\n        <select name=\"attr_ability-subtype" + ability.name + "\" class =\"abilitySubType " + ability.name.lower() + "\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
     for subtype in ability.subtypes:
-        repeating_abilities += "    <option value=\"" + subtype.name + "\">" + subtype.name + "</option>\n"
-    repeating_abilities += "  </select>\n"
+        repeating_abilities += "            <option value=\"" + subtype.name + "\">" + subtype.name + "</option>\n"
+    repeating_abilities += "        </select>\n  </span>\n"
 html.insert(repeating_abilities_index+1,repeating_abilities)
 
 #write repeating_abilities javascript
