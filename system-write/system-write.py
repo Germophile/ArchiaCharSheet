@@ -1,6 +1,11 @@
 import gspread
 import os
 from git import Repo
+import sys
+
+commit = False
+if(len(sys.argv) > 1):
+    if(sys.argv[1] == "git"): commit = True
 
 gc = gspread.service_account()
 
@@ -291,4 +296,4 @@ def git_push():
     except:
         print('Some error occured while pushing the code')    
 
-git_push()
+if(commit): git_push()
