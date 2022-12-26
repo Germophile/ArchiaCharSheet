@@ -183,10 +183,10 @@ sourceDict["a"] = sourceDict["Arcane"]
 sourceDict["p"] = sourceDict["Primeval"]
 sourceDict["m"] = sourceDict["Mundane"] """
 
-f = open("../archia-charsheet.html")
+f = open("archia-charsheet.html")
 html = f.read()
 f.close()
-f = open("../archia-charsheet.css")
+f = open("archia-charsheet.css")
 css = f.read()
 f.close()
 
@@ -201,16 +201,16 @@ for key in sourceDict:
     repeating_abilities += "    <option value=\"" + key + "\">" + key + "</option>\n"
 repeating_abilities += "  </select>\n  <br>Ability Type: \n"
 for key in sourceDict:
-    repeating_abilities += "    <span class=\"" + key + "\">\n        <select name=\"attr_ability-type" + key + "\" class=\"abilityType " + key.lower() + "\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
+    repeating_abilities += "    <span class=\"" + key + "\">\n        <select name=\"attr_ability-type-" + key.lower() + "\" class=\"abilityType " + key.lower() + "\">\n            <option value=\"None\" selected=\"selected\"></option>\n"
     for ability in sourceDict[key].abilityTypes:
         repeating_abilities += "            <option value=\"" + ability.name + "\">" + ability.name + "</option>\n"
     repeating_abilities += "        </select>\n    </span>\n"
 repeating_abilities += "\n  <br>Ability Subtype: \n"
 for ability in abilities:
-    repeating_abilities += "    <span class=\"" + ability.name + "\">\n        <select name=\"attr_ability-subtype" + ability.name + "\" class =\"abilitySubType " + ability.name.lower() + "\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
+    repeating_abilities += "    <span class=\"" + ability.name + "\">\n        <select name=\"attr_ability-subtype-" + ability.name.lower() + "\" class =\"abilitySubType " + ability.name.lower() + "\">\n            <option value=\"None\" selected=\"selected\"></option>\n"
     for subtype in ability.subtypes:
         repeating_abilities += "            <option value=\"" + subtype.name + "\">" + subtype.name + "</option>\n"
-    repeating_abilities += "        </select>\n  </span>\n"
+    repeating_abilities += "        </select>\n    </span>\n"
 html.insert(repeating_abilities_index+1,repeating_abilities)
 
 #write repeating_abilities javascript
@@ -270,16 +270,31 @@ for ability in abilities:
 '''
 html.insert(repeating_abilities_index+3,repeating_abilities)
 
+css = css[:css.index("/*Code below this point will be written by system-write*/")+1]
 
+repeating_abilities = ""
+for source in sourceDict:
+    repeating_abilities += (f'''.charsheet  input.source:not([value="{source}"]) ~ div.editor > span.{source} {{
+    display: none
+}}\n''')
+for ability in abilities:
+    repeating_abilities += f'''.charsheet  input.type:not([value="{ability.name}"]) ~ div.editor > span.{ability.name} {{
+    display: none
+}}\n'''
+
+css.append(repeating_abilities)
 
 #making the filetext and writing it to a file
-filetext = ""
-for line in html:
-    filetext += line + "\n"
-
-f = open("../archia-charsheet.html", "w")
-f.write(filetext)
-f.close()
+def write(filetype, contents):
+    filetext = ""
+    for line in contents:
+        filetext += line + "\n"
+    f = open("archia-charsheet." + filetype, "w")
+    f.write(filetext)
+    f.close()
+    
+write("html", html)
+write("css",css)
 
 path_to_git = r"../.git"
 commit_message = "commit from python script"
