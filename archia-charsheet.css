@@ -104,6 +104,8 @@
     display: none
 }
 
+/*Code below this point will be written by system-write*/
+
 .charsheet  input.source:not([value="divine"]) ~ div.editor > span.divine {
     display: none
 }
