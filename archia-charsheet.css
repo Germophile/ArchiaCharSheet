@@ -105,58 +105,58 @@
 }
 
 /*Code below this point will be written by system-write*/
-.charsheet  input.source:not([value="Divine"]) ~ div.editor > span.Divine {
+.charsheet  input.abilitySource:not([value="Divine"]) ~ div.editor > span.Divine {
     display: none
 }
-.charsheet  input.source:not([value="Profane"]) ~ div.editor > span.Profane {
+.charsheet  input.abilitySource:not([value="Profane"]) ~ div.editor > span.Profane {
     display: none
 }
-.charsheet  input.source:not([value="Arcane"]) ~ div.editor > span.Arcane {
+.charsheet  input.abilitySource:not([value="Arcane"]) ~ div.editor > span.Arcane {
     display: none
 }
-.charsheet  input.source:not([value="Primeval"]) ~ div.editor > span.Primeval {
+.charsheet  input.abilitySource:not([value="Primeval"]) ~ div.editor > span.Primeval {
     display: none
 }
-.charsheet  input.source:not([value="Mundane"]) ~ div.editor > span.Mundane {
+.charsheet  input.abilitySource:not([value="Mundane"]) ~ div.editor > span.Mundane {
     display: none
 }
-.charsheet  input.type:not([value="Attack"]) ~ div.editor > span.Attack {
+.charsheet  input.abilityType:not([value="Attack"]) ~ div.editor > span.Attack {
     display: none
 }
-.charsheet  input.type:not([value="Augmentation"]) ~ div.editor > span.Augmentation {
+.charsheet  input.abilityType:not([value="Augmentation"]) ~ div.editor > span.Augmentation {
     display: none
 }
-.charsheet  input.type:not([value="Cataclysm"]) ~ div.editor > span.Cataclysm {
+.charsheet  input.abilityType:not([value="Cataclysm"]) ~ div.editor > span.Cataclysm {
     display: none
 }
-.charsheet  input.type:not([value="Communication"]) ~ div.editor > span.Communication {
+.charsheet  input.abilityType:not([value="Communication"]) ~ div.editor > span.Communication {
     display: none
 }
-.charsheet  input.type:not([value="Creation"]) ~ div.editor > span.Creation {
+.charsheet  input.abilityType:not([value="Creation"]) ~ div.editor > span.Creation {
     display: none
 }
-.charsheet  input.type:not([value="Divination"]) ~ div.editor > span.Divination {
+.charsheet  input.abilityType:not([value="Divination"]) ~ div.editor > span.Divination {
     display: none
 }
-.charsheet  input.type:not([value="Druidism"]) ~ div.editor > span.Druidism {
+.charsheet  input.abilityType:not([value="Druidism"]) ~ div.editor > span.Druidism {
     display: none
 }
-.charsheet  input.type:not([value="Illusion"]) ~ div.editor > span.Illusion {
+.charsheet  input.abilityType:not([value="Illusion"]) ~ div.editor > span.Illusion {
     display: none
 }
-.charsheet  input.type:not([value="Magisprudence"]) ~ div.editor > span.Magisprudence {
+.charsheet  input.abilityType:not([value="Magisprudence"]) ~ div.editor > span.Magisprudence {
     display: none
 }
-.charsheet  input.type:not([value="Maneuvers"]) ~ div.editor > span.Maneuvers {
+.charsheet  input.abilityType:not([value="Maneuvers"]) ~ div.editor > span.Maneuvers {
     display: none
 }
-.charsheet  input.type:not([value="Psionics"]) ~ div.editor > span.Psionics {
+.charsheet  input.abilityType:not([value="Psionics"]) ~ div.editor > span.Psionics {
     display: none
 }
-.charsheet  input.type:not([value="Rejuvenation"]) ~ div.editor > span.Rejuvenation {
+.charsheet  input.abilityType:not([value="Rejuvenation"]) ~ div.editor > span.Rejuvenation {
     display: none
 }
-.charsheet  input.type:not([value="Scourge"]) ~ div.editor > span.Scourge {
+.charsheet  input.abilityType:not([value="Scourge"]) ~ div.editor > span.Scourge {
     display: none
 }
 

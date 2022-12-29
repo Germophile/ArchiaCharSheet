@@ -196,18 +196,18 @@ css = css.split("\n")
 #write repeating_abilities html
 repeating_abilities_index = html.index("    <!--repeating_abilities code below this will be modified by script-->")
 del html[repeating_abilities_index+1:html.index("    <!--repeating_abilities code above this will be modified by script-->")]
-repeating_abilities = "  <br>Source: <select name=\"attr_ability-source\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
+repeating_abilities = "  <br>Source: <select name=\"attr_abilitySource\">\n    <option value=\"None\" selected=\"selected\"></option>\n"
 for key in sourceDict:
     repeating_abilities += "    <option value=\"" + key + "\">" + key + "</option>\n"
 repeating_abilities += "  </select>\n  <br>Ability Type: \n"
 for key in sourceDict:
-    repeating_abilities += "    <span class=\"" + key + "\">\n        <select name=\"attr_ability-type-" + key.lower() + "\" class=\"abilityType " + key.lower() + "\">\n            <option value=\"None\" selected=\"selected\"></option>\n"
+    repeating_abilities += "    <span class=\"" + key + "\">\n        <select name=\"attr_abilityType" + key + "\" class=\"abilityType " + key + "\">\n            <option value=\"None\" selected=\"selected\"></option>\n"
     for ability in sourceDict[key].abilityTypes:
         repeating_abilities += "            <option value=\"" + ability.name + "\">" + ability.name + "</option>\n"
     repeating_abilities += "        </select>\n    </span>\n"
 repeating_abilities += "\n  <br>Ability Subtype: \n"
 for ability in abilities:
-    repeating_abilities += "    <span class=\"" + ability.name + "\">\n        <select name=\"attr_ability-subtype-" + ability.name.lower() + "\" class =\"abilitySubType " + ability.name.lower() + "\">\n            <option value=\"None\" selected=\"selected\"></option>\n"
+    repeating_abilities += "    <span class=\"" + ability.name + "\">\n        <select name=\"attr_abilitySubtype" + ability.name + "\" class =\"abilitySubType " + ability.name + "\">\n            <option value=\"None\" selected=\"selected\"></option>\n"
     for subtype in ability.subtypes:
         repeating_abilities += "            <option value=\"" + subtype.name + "\">" + subtype.name + "</option>\n"
     repeating_abilities += "        </select>\n    </span>\n"
@@ -216,55 +216,42 @@ html.insert(repeating_abilities_index+1,repeating_abilities)
 #write repeating_abilities javascript
 repeating_abilities_index = html.index("  <!--Repeating_abilities script:-->")
 del html[repeating_abilities_index+1:html.index("  <!--/Repeating_abilities script-->")]
-sourceArray = ""
+getAttrs = "\"repeating_abilities_abilitySource\",\"repeating_abilities_abilityType\",\"repeating_abilities_abilitySubtype\""
 for source in sourceDict:
-    sourceArray += (f"            \"{source}\":[\"{sourceDict[source].abilityTypes[0].name}\",\"{sourceDict[source].abilityTypes[1].name}\",\"{sourceDict[source].abilityTypes[2].name}\",\"{sourceDict[source].abilityTypes[3].name}\",\"{sourceDict[source].abilityTypes[4].name}\",\"{sourceDict[source].abilityTypes[5].name}\"],\n")
-sourceArray = sourceArray[:len(sourceArray)-2]
-repeating_abilities = f'''\n  on("change:repeating_abilities:ability-source", function() {{
-    getAttrs(["repeating_abilities_ability-source","repeating_abilities_ability-type","repeating_abilities_ability-subtype"], function(values) {{
-        var abilityTypes = {{
-{sourceArray}
-        }};
-        if(!abilityTypes[values.repeating_abilities_ability-source].includes(values.repeating_abilities_ability-type)) {{
-            setAttrs({{"repeating_abilities_ability-type":"Attack","repeating_abilities_ability-subtype":"Attack"}});{source.lower()}
-        }}
-        else setAttrs({{"repeating_abilities_ability-type-" + values.repeating_abilities_ability-source.toLowerCase():values.repeating_abilities_ability-type,"repeating_abilities_ability-subtype-" + values.repeating_abilities_ability-type.toLowerCase():values.repeating_abilities_ability-subtype}});
-    }})
+    getAttrs += ",\"repeating_abilities_abilityType" + source + "\""
+repeating_abilities = f'''\n  on("change:repeating_abilities:abilitySource", function() {{
+    getAttrs([{getAttrs}], function(values) {{
+        var source = values.repeating_abilities_abilitySource;
+        var type = values["repeating_abilities_abilityType"+source];
+        setAttrs({{"repeating_abilities_abilityType":type}});
+    }});
   }});'''
 html.insert(repeating_abilities_index+1,repeating_abilities)
 
-abilityArray = ""
-oneCount = []
+getAttrs = "\"repeating_abilities_abilityType\""
 for ability in abilities:
-    abilityArray += (f"            \"{ability.name}\":\"{ability.subtypes[0].name}\",\n")
-    if(len(ability.subtypes) == 1): oneCount.append(ability)
-abilityArray = abilityArray[:len(abilityArray)-2]
-andOnes = ""
-if(len(oneCount) > 1): 
-    for ability in oneCount[1:]: 
-        andOnes += f" && values.repeating_abilities_ability-type.toLowerCase() !=\"{abilities.name}\""
-repeating_abilities = f'''\n  on("change:repeating_abilities:ability-type", function() {{
-    getAttrs(["repeating_abilities_ability-type"], function(values) {{
-        var abilitySubTypes = {{
-{abilityArray}
-        }};
-        setAttrs({{"repeating_abilities_ability-subtype":abilitySubTypes[values.repeating_abilities_ability-type]}});
-    }})
+    getAttrs += ",\"repeating_abilities_abilitySubtype" + ability.name + "\""
+repeating_abilities = f'''\n  on("change:repeating_abilities:abilityType", function() {{
+    getAttrs([{getAttrs}], function(values) {{
+        var type = values.repeating_abilities_abilityType;
+        var subtype = values["repeating_abilities_abilitySubtype"+type];
+        setAttrs({{"repeating_abilities_abilitySubtype":subtype}});
+    }});
   }});'''
 html.insert(repeating_abilities_index+2,repeating_abilities)
 
 repeating_abilities = ""
 for source in sourceDict:
-    repeating_abilities += f'''  on("change:repeating_abilities:ability-type-{source.lower()}", function() {{
-    getAttrs(["repeating_abilities_ability-type-{source.lower()}"], function(values) {{
-      setAttrs({{"repeating_abilities_ability-type":values.repeating_abilities_ability-type-{source.lower()}}});
+    repeating_abilities += f'''  on("change:repeating_abilities:abilityType{source}", function() {{
+    getAttrs(["repeating_abilities_abilityType{source}"], function(values) {{
+      setAttrs({{"repeating_abilities_abilityType":values.repeating_abilities_abilityType{source}}});
     }});
   }});
 '''
 for ability in abilities:
-    repeating_abilities += f'''  on("change:repeating_abilities:ability-subtype-{ability.name.lower()}", function() {{
-    getAttrs(["repeating_abilities_ability-subtype-{ability.name.lower()}"], function(values) {{
-      setAttrs({{"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-{ability.name.lower()}}});
+    repeating_abilities += f'''  on("change:repeating_abilities:abilitySubtype{ability.name}", function() {{
+    getAttrs(["repeating_abilities_abilitySubtype{ability.name}"], function(values) {{
+      setAttrs({{"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtype{ability.name}}});
     }});
   }});
 '''
@@ -274,11 +261,11 @@ css = css[:css.index("/*Code below this point will be written by system-write*/"
 
 repeating_abilities = ""
 for source in sourceDict:
-    repeating_abilities += (f'''.charsheet  input.source:not([value="{source}"]) ~ div.editor > span.{source} {{
+    repeating_abilities += (f'''.charsheet  input.abilitySource:not([value="{source}"]) ~ div.editor > span.{source} {{
     display: none
 }}\n''')
 for ability in abilities:
-    repeating_abilities += f'''.charsheet  input.type:not([value="{ability.name}"]) ~ div.editor > span.{ability.name} {{
+    repeating_abilities += f'''.charsheet  input.abilityType:not([value="{ability.name}"]) ~ div.editor > span.{ability.name} {{
     display: none
 }}\n'''
 

@@ -102,19 +102,20 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   
   <h3><span name="attr_ability"></span> <button class="editIcon" type="action" name="act_edit"></button></h3>
   Source: <span name="attr_abilitySource"></span><br>
-  <span name="attr_abilityType"></span> (<span name="attr_abilitySubType"></span>)
+  <span name="attr_abilityType"></span> (<span name="attr_abilitySubtype"></span>)
+  <br> <span name="attr_ability_desc"></span>
 
   <input type="hidden" value=0 name="attr_abilityAPcost" />
   <input type="hidden" value=0 name="attr_abilitySPcost" />
-  <input type="hidden" value="" name="attr_abilityType" class="type" />
-  <input type="hidden" value="" name="attr_abilitySubType" />
+  <input type="hidden" value="" name="attr_abilityType" class="abilityType"/>
+  <input type="hidden" value="" name="attr_abilitySubtype" class="abilitySubtype"/>
   <input type="hidden" value="true" name="attr_editing" class="editing"/>
-  <input type="hidden" value="divine" name="attr_source" class="source"/>
+  <input type="hidden" value="divine" name="attr_abilitySource" class="abilitySource"/>
 
   <div class="editor">
     <input name="attr_ability" title="" type="text" value=""/>
     <!--repeating_abilities code below this will be modified by script-->
-  <br>Source: <select name="attr_ability-source">
+  <br>Source: <select name="attr_abilitySource">
     <option value="None" selected="selected"></option>
     <option value="Divine">Divine</option>
     <option value="Profane">Profane</option>
@@ -124,7 +125,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
   </select>
   <br>Ability Type: 
     <span class="Divine">
-        <select name="attr_ability-type-divine" class="abilityType divine">
+        <select name="attr_abilityTypeDivine" class="abilityType Divine">
             <option value="None" selected="selected"></option>
             <option value="Attack">Attack</option>
             <option value="Augmentation">Augmentation</option>
@@ -135,7 +136,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
         </select>
     </span>
     <span class="Profane">
-        <select name="attr_ability-type-profane" class="abilityType profane">
+        <select name="attr_abilityTypeProfane" class="abilityType Profane">
             <option value="None" selected="selected"></option>
             <option value="Attack">Attack</option>
             <option value="Cataclysm">Cataclysm</option>
@@ -146,7 +147,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
         </select>
     </span>
     <span class="Arcane">
-        <select name="attr_ability-type-arcane" class="abilityType arcane">
+        <select name="attr_abilityTypeArcane" class="abilityType Arcane">
             <option value="None" selected="selected"></option>
             <option value="Attack">Attack</option>
             <option value="Augmentation">Augmentation</option>
@@ -157,7 +158,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
         </select>
     </span>
     <span class="Primeval">
-        <select name="attr_ability-type-primeval" class="abilityType primeval">
+        <select name="attr_abilityTypePrimeval" class="abilityType Primeval">
             <option value="None" selected="selected"></option>
             <option value="Attack">Attack</option>
             <option value="Augmentation">Augmentation</option>
@@ -168,7 +169,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
         </select>
     </span>
     <span class="Mundane">
-        <select name="attr_ability-type-mundane" class="abilityType mundane">
+        <select name="attr_abilityTypeMundane" class="abilityType Mundane">
             <option value="None" selected="selected"></option>
             <option value="Attack">Attack</option>
             <option value="Cataclysm">Cataclysm</option>
@@ -181,90 +182,90 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
 
   <br>Ability Subtype: 
     <span class="Attack">
-        <select name="attr_ability-subtype-attack" class ="abilitySubType attack">
+        <select name="attr_abilitySubtypeAttack" class ="abilitySubType Attack">
             <option value="None" selected="selected"></option>
             <option value="Attack">Attack</option>
         </select>
     </span>
     <span class="Augmentation">
-        <select name="attr_ability-subtype-augmentation" class ="abilitySubType augmentation">
+        <select name="attr_abilitySubtypeAugmentation" class ="abilitySubType Augmentation">
             <option value="None" selected="selected"></option>
             <option value="Shield">Shield</option>
             <option value="Buff">Buff</option>
         </select>
     </span>
     <span class="Cataclysm">
-        <select name="attr_ability-subtype-cataclysm" class ="abilitySubType cataclysm">
+        <select name="attr_abilitySubtypeCataclysm" class ="abilitySubType Cataclysm">
             <option value="None" selected="selected"></option>
             <option value="Destruction">Destruction</option>
             <option value="Suppression">Suppression</option>
         </select>
     </span>
     <span class="Communication">
-        <select name="attr_ability-subtype-communication" class ="abilitySubType communication">
+        <select name="attr_abilitySubtypeCommunication" class ="abilitySubType Communication">
             <option value="None" selected="selected"></option>
             <option value="Sending">Sending</option>
             <option value="Comprehension">Comprehension</option>
         </select>
     </span>
     <span class="Creation">
-        <select name="attr_ability-subtype-creation" class ="abilitySubType creation">
+        <select name="attr_abilitySubtypeCreation" class ="abilitySubType Creation">
             <option value="None" selected="selected"></option>
             <option value="Fabricate">Fabricate</option>
             <option value="Imbue">Imbue</option>
         </select>
     </span>
     <span class="Divination">
-        <select name="attr_ability-subtype-divination" class ="abilitySubType divination">
+        <select name="attr_abilitySubtypeDivination" class ="abilitySubType Divination">
             <option value="None" selected="selected"></option>
             <option value="Augury">Augury</option>
             <option value="Scrying">Scrying</option>
         </select>
     </span>
     <span class="Druidism">
-        <select name="attr_ability-subtype-druidism" class ="abilitySubType druidism">
+        <select name="attr_abilitySubtypeDruidism" class ="abilitySubType Druidism">
             <option value="None" selected="selected"></option>
             <option value="Floromancy">Floromancy</option>
             <option value="Faunomancy">Faunomancy</option>
         </select>
     </span>
     <span class="Illusion">
-        <select name="attr_ability-subtype-illusion" class ="abilitySubType illusion">
+        <select name="attr_abilitySubtypeIllusion" class ="abilitySubType Illusion">
             <option value="None" selected="selected"></option>
             <option value="Personal">Personal</option>
             <option value="Projected">Projected</option>
         </select>
     </span>
     <span class="Magisprudence">
-        <select name="attr_ability-subtype-magisprudence" class ="abilitySubType magisprudence">
+        <select name="attr_abilitySubtypeMagisprudence" class ="abilitySubType Magisprudence">
             <option value="None" selected="selected"></option>
             <option value="Magic Sense">Magic Sense</option>
             <option value="Teleportation">Teleportation</option>
         </select>
     </span>
     <span class="Maneuvers">
-        <select name="attr_ability-subtype-maneuvers" class ="abilitySubType maneuvers">
+        <select name="attr_abilitySubtypeManeuvers" class ="abilitySubType Maneuvers">
             <option value="None" selected="selected"></option>
             <option value="Exploits">Exploits</option>
             <option value="Stunts">Stunts</option>
         </select>
     </span>
     <span class="Psionics">
-        <select name="attr_ability-subtype-psionics" class ="abilitySubType psionics">
+        <select name="attr_abilitySubtypePsionics" class ="abilitySubType Psionics">
             <option value="None" selected="selected"></option>
             <option value="Telepathy">Telepathy</option>
             <option value="Telekinesis">Telekinesis</option>
         </select>
     </span>
     <span class="Rejuvenation">
-        <select name="attr_ability-subtype-rejuvenation" class ="abilitySubType rejuvenation">
+        <select name="attr_abilitySubtypeRejuvenation" class ="abilitySubType Rejuvenation">
             <option value="None" selected="selected"></option>
             <option value="HP">HP</option>
             <option value="Mild Conditions">Mild Conditions</option>
         </select>
     </span>
     <span class="Scourge">
-        <select name="attr_ability-subtype-scourge" class ="abilitySubType scourge">
+        <select name="attr_abilitySubtypeScourge" class ="abilitySubType Scourge">
             <option value="None" selected="selected"></option>
             <option value="Against Skill Checks">Against Skill Checks</option>
             <option value="Status Condition">Status Condition</option>
@@ -272,10 +273,10 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     </span>
 
     <!--repeating_abilities code above this will be modified by script-->
+  <textarea name="attr_ability_desc"></textarea>
   </div>
   
 
-  <textarea name="attr_ability_desc" class="edit"></textarea>
 
   
 
@@ -432,130 +433,109 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
 
   <!--Repeating_abilities script:-->
 
-  on("change:repeating_abilities:ability-source", function() {
-    getAttrs(["repeating_abilities_ability-source","repeating_abilities_ability-type","repeating_abilities_ability-subtype"], function(values) {
-        var abilityTypes = {
-            "Divine":["Attack","Augmentation","Communication","Divination","Rejuvenation","Scourge"],
-            "Profane":["Attack","Cataclysm","Communication","Illusion","Psionics","Scourge"],
-            "Arcane":["Attack","Augmentation","Communication","Creation","Illusion","Magisprudence"],
-            "Primeval":["Attack","Augmentation","Cataclysm","Communication","Druidism","Rejuvenation"],
-            "Mundane":["Attack","Cataclysm","Communication","Creation","Maneuvers","Rejuvenation"]
-        };
-        if(!abilityTypes[values.repeating_abilities_ability-source].includes(values.repeating_abilities_ability-type)) {
-            setAttrs({"repeating_abilities_ability-type":"Attack","repeating_abilities_ability-subtype":"Attack"});mundane
-        }
-        else setAttrs({"repeating_abilities_ability-type-" + values.repeating_abilities_ability-source.toLowerCase():values.repeating_abilities_ability-type,"repeating_abilities_ability-subtype-" + values.repeating_abilities_ability-type.toLowerCase():values.repeating_abilities_ability-subtype});
-    })
+  on("change:repeating_abilities:abilitySource", function() {
+    getAttrs(["repeating_abilities_abilitySource","repeating_abilities_abilityType","repeating_abilities_abilitySubtype","repeating_abilities_abilityTypeDivine","repeating_abilities_abilityTypeProfane","repeating_abilities_abilityTypeArcane","repeating_abilities_abilityTypePrimeval","repeating_abilities_abilityTypeMundane"], function(values) {
+        var source = values.repeating_abilities_abilitySource;
+        var type = values["repeating_abilities_abilityType"+source];
+        setAttrs({"repeating_abilities_abilityType":type});
+    });
   });
 
-  on("change:repeating_abilities:ability-type", function() {
-    getAttrs(["repeating_abilities_ability-type"], function(values) {
-        var abilitySubTypes = {
-            "Attack":"Attack",
-            "Augmentation":"Shield",
-            "Cataclysm":"Destruction",
-            "Communication":"Sending",
-            "Creation":"Fabricate",
-            "Divination":"Augury",
-            "Druidism":"Floromancy",
-            "Illusion":"Personal",
-            "Magisprudence":"Magic Sense",
-            "Maneuvers":"Exploits",
-            "Psionics":"Telepathy",
-            "Rejuvenation":"HP",
-            "Scourge":"Against Skill Checks"
-        };
-        setAttrs({"repeating_abilities_ability-subtype":abilitySubTypes[values.repeating_abilities_ability-type]});
-    })
-  });
-  on("change:repeating_abilities:ability-type-divine", function() {
-    getAttrs(["repeating_abilities_ability-type-divine"], function(values) {
-      setAttrs({"repeating_abilities_ability-type":values.repeating_abilities_ability-type-divine});
+  on("change:repeating_abilities:abilityType", function() {
+    getAttrs(["repeating_abilities_abilityType","repeating_abilities_abilitySubtypeAttack","repeating_abilities_abilitySubtypeAugmentation","repeating_abilities_abilitySubtypeCataclysm","repeating_abilities_abilitySubtypeCommunication","repeating_abilities_abilitySubtypeCreation","repeating_abilities_abilitySubtypeDivination","repeating_abilities_abilitySubtypeDruidism","repeating_abilities_abilitySubtypeIllusion","repeating_abilities_abilitySubtypeMagisprudence","repeating_abilities_abilitySubtypeManeuvers","repeating_abilities_abilitySubtypePsionics","repeating_abilities_abilitySubtypeRejuvenation","repeating_abilities_abilitySubtypeScourge"], function(values) {
+        var type = values.repeating_abilities_abilityType;
+        var subtype = values["repeating_abilities_abilitySubtype"+type];
+        setAttrs({"repeating_abilities_abilitySubtype":subtype});
     });
   });
-  on("change:repeating_abilities:ability-type-profane", function() {
-    getAttrs(["repeating_abilities_ability-type-profane"], function(values) {
-      setAttrs({"repeating_abilities_ability-type":values.repeating_abilities_ability-type-profane});
+  on("change:repeating_abilities:abilityTypeDivine", function() {
+    getAttrs(["repeating_abilities_abilityTypeDivine"], function(values) {
+      setAttrs({"repeating_abilities_abilityType":values.repeating_abilities_abilityTypeDivine});
     });
   });
-  on("change:repeating_abilities:ability-type-arcane", function() {
-    getAttrs(["repeating_abilities_ability-type-arcane"], function(values) {
-      setAttrs({"repeating_abilities_ability-type":values.repeating_abilities_ability-type-arcane});
+  on("change:repeating_abilities:abilityTypeProfane", function() {
+    getAttrs(["repeating_abilities_abilityTypeProfane"], function(values) {
+      setAttrs({"repeating_abilities_abilityType":values.repeating_abilities_abilityTypeProfane});
     });
   });
-  on("change:repeating_abilities:ability-type-primeval", function() {
-    getAttrs(["repeating_abilities_ability-type-primeval"], function(values) {
-      setAttrs({"repeating_abilities_ability-type":values.repeating_abilities_ability-type-primeval});
+  on("change:repeating_abilities:abilityTypeArcane", function() {
+    getAttrs(["repeating_abilities_abilityTypeArcane"], function(values) {
+      setAttrs({"repeating_abilities_abilityType":values.repeating_abilities_abilityTypeArcane});
     });
   });
-  on("change:repeating_abilities:ability-type-mundane", function() {
-    getAttrs(["repeating_abilities_ability-type-mundane"], function(values) {
-      setAttrs({"repeating_abilities_ability-type":values.repeating_abilities_ability-type-mundane});
+  on("change:repeating_abilities:abilityTypePrimeval", function() {
+    getAttrs(["repeating_abilities_abilityTypePrimeval"], function(values) {
+      setAttrs({"repeating_abilities_abilityType":values.repeating_abilities_abilityTypePrimeval});
     });
   });
-  on("change:repeating_abilities:ability-subtype-attack", function() {
-    getAttrs(["repeating_abilities_ability-subtype-attack"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-attack});
+  on("change:repeating_abilities:abilityTypeMundane", function() {
+    getAttrs(["repeating_abilities_abilityTypeMundane"], function(values) {
+      setAttrs({"repeating_abilities_abilityType":values.repeating_abilities_abilityTypeMundane});
     });
   });
-  on("change:repeating_abilities:ability-subtype-augmentation", function() {
-    getAttrs(["repeating_abilities_ability-subtype-augmentation"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-augmentation});
+  on("change:repeating_abilities:abilitySubtypeAttack", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeAttack"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeAttack});
     });
   });
-  on("change:repeating_abilities:ability-subtype-cataclysm", function() {
-    getAttrs(["repeating_abilities_ability-subtype-cataclysm"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-cataclysm});
+  on("change:repeating_abilities:abilitySubtypeAugmentation", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeAugmentation"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeAugmentation});
     });
   });
-  on("change:repeating_abilities:ability-subtype-communication", function() {
-    getAttrs(["repeating_abilities_ability-subtype-communication"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-communication});
+  on("change:repeating_abilities:abilitySubtypeCataclysm", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeCataclysm"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeCataclysm});
     });
   });
-  on("change:repeating_abilities:ability-subtype-creation", function() {
-    getAttrs(["repeating_abilities_ability-subtype-creation"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-creation});
+  on("change:repeating_abilities:abilitySubtypeCommunication", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeCommunication"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeCommunication});
     });
   });
-  on("change:repeating_abilities:ability-subtype-divination", function() {
-    getAttrs(["repeating_abilities_ability-subtype-divination"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-divination});
+  on("change:repeating_abilities:abilitySubtypeCreation", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeCreation"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeCreation});
     });
   });
-  on("change:repeating_abilities:ability-subtype-druidism", function() {
-    getAttrs(["repeating_abilities_ability-subtype-druidism"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-druidism});
+  on("change:repeating_abilities:abilitySubtypeDivination", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeDivination"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeDivination});
     });
   });
-  on("change:repeating_abilities:ability-subtype-illusion", function() {
-    getAttrs(["repeating_abilities_ability-subtype-illusion"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-illusion});
+  on("change:repeating_abilities:abilitySubtypeDruidism", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeDruidism"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeDruidism});
     });
   });
-  on("change:repeating_abilities:ability-subtype-magisprudence", function() {
-    getAttrs(["repeating_abilities_ability-subtype-magisprudence"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-magisprudence});
+  on("change:repeating_abilities:abilitySubtypeIllusion", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeIllusion"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeIllusion});
     });
   });
-  on("change:repeating_abilities:ability-subtype-maneuvers", function() {
-    getAttrs(["repeating_abilities_ability-subtype-maneuvers"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-maneuvers});
+  on("change:repeating_abilities:abilitySubtypeMagisprudence", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeMagisprudence"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeMagisprudence});
     });
   });
-  on("change:repeating_abilities:ability-subtype-psionics", function() {
-    getAttrs(["repeating_abilities_ability-subtype-psionics"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-psionics});
+  on("change:repeating_abilities:abilitySubtypeManeuvers", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeManeuvers"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeManeuvers});
     });
   });
-  on("change:repeating_abilities:ability-subtype-rejuvenation", function() {
-    getAttrs(["repeating_abilities_ability-subtype-rejuvenation"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-rejuvenation});
+  on("change:repeating_abilities:abilitySubtypePsionics", function() {
+    getAttrs(["repeating_abilities_abilitySubtypePsionics"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypePsionics});
     });
   });
-  on("change:repeating_abilities:ability-subtype-scourge", function() {
-    getAttrs(["repeating_abilities_ability-subtype-scourge"], function(values) {
-      setAttrs({"repeating_abilities_ability-subtype":values.repeating_abilities_ability-subtype-scourge});
+  on("change:repeating_abilities:abilitySubtypeRejuvenation", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeRejuvenation"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeRejuvenation});
+    });
+  });
+  on("change:repeating_abilities:abilitySubtypeScourge", function() {
+    getAttrs(["repeating_abilities_abilitySubtypeScourge"], function(values) {
+      setAttrs({"repeating_abilities_abilitySubtype":values.repeating_abilities_abilitySubtypeScourge});
     });
   });
 
@@ -584,6 +564,17 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     });
 });
 -->
+
+
+
+
+
+
+
+
+
+
+
 
 
 
