@@ -4,7 +4,7 @@
   }
 
   .column.middle {
-    float: middle;
+    float: left;
     width: 40%;
   }
 
@@ -123,40 +123,115 @@
 .charsheet  input.abilityType:not([value="Attack"]) ~ div.editor > span.Attack {
     display: none
 }
+.charsheet  input.abilitySubtype:not([value="Attack"]) ~ div.editor > span.Attack {
+    display: none
+}
 .charsheet  input.abilityType:not([value="Augmentation"]) ~ div.editor > span.Augmentation {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Shield"]) ~ div.editor > span.Shield {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Buff"]) ~ div.editor > span.Buff {
     display: none
 }
 .charsheet  input.abilityType:not([value="Cataclysm"]) ~ div.editor > span.Cataclysm {
     display: none
 }
+.charsheet  input.abilitySubtype:not([value="Destruction"]) ~ div.editor > span.Destruction {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Suppression"]) ~ div.editor > span.Suppression {
+    display: none
+}
 .charsheet  input.abilityType:not([value="Communication"]) ~ div.editor > span.Communication {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Sending"]) ~ div.editor > span.Sending {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Comprehension"]) ~ div.editor > span.Comprehension {
     display: none
 }
 .charsheet  input.abilityType:not([value="Creation"]) ~ div.editor > span.Creation {
     display: none
 }
+.charsheet  input.abilitySubtype:not([value="Fabricate"]) ~ div.editor > span.Fabricate {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Imbue"]) ~ div.editor > span.Imbue {
+    display: none
+}
 .charsheet  input.abilityType:not([value="Divination"]) ~ div.editor > span.Divination {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Augury"]) ~ div.editor > span.Augury {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Scrying"]) ~ div.editor > span.Scrying {
     display: none
 }
 .charsheet  input.abilityType:not([value="Druidism"]) ~ div.editor > span.Druidism {
     display: none
 }
+.charsheet  input.abilitySubtype:not([value="Floromancy"]) ~ div.editor > span.Floromancy {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Faunomancy"]) ~ div.editor > span.Faunomancy {
+    display: none
+}
 .charsheet  input.abilityType:not([value="Illusion"]) ~ div.editor > span.Illusion {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Personal"]) ~ div.editor > span.Personal {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Projected"]) ~ div.editor > span.Projected {
     display: none
 }
 .charsheet  input.abilityType:not([value="Magisprudence"]) ~ div.editor > span.Magisprudence {
     display: none
 }
+.charsheet  input.abilitySubtype:not([value="Magic Sense"]) ~ div.editor > span.Magic-Sense {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Teleportation"]) ~ div.editor > span.Teleportation {
+    display: none
+}
 .charsheet  input.abilityType:not([value="Maneuvers"]) ~ div.editor > span.Maneuvers {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Exploits"]) ~ div.editor > span.Exploits {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Stunts"]) ~ div.editor > span.Stunts {
     display: none
 }
 .charsheet  input.abilityType:not([value="Psionics"]) ~ div.editor > span.Psionics {
     display: none
 }
+.charsheet  input.abilitySubtype:not([value="Telepathy"]) ~ div.editor > span.Telepathy {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Telekinesis"]) ~ div.editor > span.Telekinesis {
+    display: none
+}
 .charsheet  input.abilityType:not([value="Rejuvenation"]) ~ div.editor > span.Rejuvenation {
     display: none
 }
+.charsheet  input.abilitySubtype:not([value="HP"]) ~ div.editor > span.HP {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Mild Conditions"]) ~ div.editor > span.Mild-Conditions {
+    display: none
+}
 .charsheet  input.abilityType:not([value="Scourge"]) ~ div.editor > span.Scourge {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Against Skill Checks"]) ~ div.editor > span.Against-Skill-Checks {
+    display: none
+}
+.charsheet  input.abilitySubtype:not([value="Status Condition"]) ~ div.editor > span.Status-Condition {
     display: none
 }
 

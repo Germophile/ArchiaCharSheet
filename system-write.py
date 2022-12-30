@@ -2,6 +2,7 @@ import gspread
 import os
 from git import Repo
 import sys
+import re
 
 commit = False
 if(len(sys.argv) > 1):
@@ -10,6 +11,9 @@ if(len(sys.argv) > 1):
 gc = gspread.service_account()
 
 table = gc.open_by_key("1Xx0MkkUTST5Th5Q6aNJObXq9fn5k5P0E8xQcO1HHeVw").sheet1.get_values()
+
+def camelCase(string):
+    return string[0].lower()+string[1:].replace(" ","")
 
 class Ability_Type:
     def __init__(self,name,d,f,a,p,m,description):
@@ -47,7 +51,7 @@ class Ability_Type:
 
 
 class Subtype:
-    def __init__(self,name,costSP,typeSP,repeatable,costAP,costAPC,description):
+    def __init__(self,name,costSP,typeSP,costAP,costAPC,description):
         self.name = name
         if(len(costSP)>0): self.costSP = int(costSP)
         else: self.costSP = 0
@@ -56,23 +60,21 @@ class Subtype:
         else: self.costAP = 0
         if(len(costAPC)>0): self.costAPC = int(costAPC)
         else: self.costAPC = 0
-        if(repeatable == "TRUE"): self.repeatable = True
-        else: self.repeatable = False
         self.description = description
         self.modifiers = []
+        self.symbol = {"Permanent":"■","Transient":"□","Either":"◩","AP":"♢"}
     
     def modifier(self,name,costSP,typeSP,repeatable,costAP,costAPC,description):
-        self.modifiers.append(Modifier(name,costSP,typeSP,repeatable,costAP,costAPC,description))
+        self.modifiers.append(Modifier(name,costSP,typeSP,repeatable,costAP,costAPC,description,self.symbol))
 
     def string(self):
-        symbol = {"Permanent":"■","Transient":"□","Either":"◩","AP":"♢"}
         string = "\t"
-        for _ in range(self.costSP): string += symbol[self.typeSP]
+        for _ in range(self.costSP): string += self.symbol[self.typeSP]
         string += " " + self.name
-        for _ in range(self.costAP): string += symbol["AP"]
+        for _ in range(self.costAP): string += self.symbol["AP"]
         if(self.costAPC > 0): 
             string += " ("
-            for _ in range(self.costAPC): string += symbol["AP"]
+            for _ in range(self.costAPC): string += self.symbol["AP"]
             string += ")"
         string += ": " + self.description + "\n"
         for modifier in self.modifiers:
@@ -80,23 +82,32 @@ class Subtype:
         return string
 
     def gmbinder(self):
-        symbol = {"Permanent":"■","Transient":"□","Either":"◩","AP":"♢"}
         string = "- "
-        for _ in range(self.costSP): string += symbol[self.typeSP]
-        if(self.repeatable): string += "\*"
+        for _ in range(self.costSP): string += self.symbol[self.typeSP]
         string += " **" + self.name + " "
-        for _ in range(self.costAP): string += symbol["AP"]
+        for _ in range(self.costAP): string += self.symbol["AP"]
         if(self.costAPC > 0): 
             string += "("
-            for _ in range(self.costAPC): string += symbol["AP"]
+            for _ in range(self.costAPC): string += self.symbol["AP"]
             string += ")"
         string += ":** " + self.description.replace("*","\*") + "\n"
         for modifier in self.modifiers:
             string += modifier.gmbinder()
         return string
+    
+    def roll20(self):
+        string = ""
+        for _ in range(self.costSP): string += self.symbol[self.typeSP]
+        string += " " + self.name
+        for _ in range(self.costAP): string += self.symbol["AP"]
+        if(self.costAPC > 0): 
+            string += " ("
+            for _ in range(self.costAPC): string += self.symbol["AP"]
+            string += ")"
+        return string
         
 class Modifier:
-    def __init__(self,name,costSP,typeSP,repeatable,costAP,costAPC,description):
+    def __init__(self,name,costSP,typeSP,repeatable,costAP,costAPC,description,symbol):
         self.name = name
         if(len(costSP)>0): self.costSP = int(costSP)
         else: self.costSP = 0
@@ -110,37 +121,76 @@ class Modifier:
         else: self.costAP = 0
         if(len(costAPC)>0): self.costAPC = int(costAPC)
         else: self.costAPC = 0
-        if(repeatable == "TRUE"): self.repeatable = True
-        else: self.repeatable = False
+        if(len(repeatable)>0): self.repeatable = repeatable
+        else: self.repeatable = "none"
         self.description = description
+        self.symbol = symbol
     
     def string(self):
-        symbol = {"Permanent":"■","Transient":"□","Either":"◩","AP":"♢"}
         string = "\t\t"
-        for _ in range(self.costSP): string += symbol[self.typeSP]
+        for _ in range(self.costSP): string += self.symbol[self.typeSP]
         string += " " + self.name
-        for _ in range(self.costAP): string += symbol["AP"]
+        for _ in range(self.costAP): string += self.symbol["AP"]
         if(self.costAPC > 0): 
             string += " ("
-            for _ in range(self.costAPC): string += symbol["AP"]
+            for _ in range(self.costAPC): string += self.symbol["AP"]
             string += ")"
         string += ": " + self.description + "\n"
         return string
 
     def gmbinder(self):
-        symbol = {"Permanent":"■","Transient":"□","Either":"◩","AP":"♢"}
         string = "- &nbsp;&nbsp;"
-        for _ in range(self.costSP): string += symbol[self.typeSP]
+        for _ in range(self.costSP): string += self.symbol[self.typeSP]
         if(self.repeatable): string += "\*"
         string += " " + self.name
         if(self.repeatableAP): string += "\*"
         if(self.costAP > 0): string += " "
-        for _ in range(self.costAP): string += symbol["AP"]
+        for _ in range(self.costAP): string += self.symbol["AP"]
         if(self.costAPC > 0): 
             string += " ("
-            for _ in range(self.costAPC): string += symbol["AP"]
+            for _ in range(self.costAPC): string += self.symbol["AP"]
             string += ")"
         string += ": " + self.description.replace("*","\*") + "\n"
+        return string
+    
+    def roll20(self):
+        string = ""
+        if(self.repeatable == "none"):
+            string = f'<br>{self.cost()}<input type="checkbox" name="{camelCase(self.name)}"> {self.name}{self.apCost()}: {self.description}</input>\n'
+        elif(self.repeatable == "multiplier"):
+            string = f'<br>{self.cost()}<input type="number" name="{camelCase(self.name)}"  step="1" value="0" min="0" max="10"> {self.name}{self.apCost()}: {self.description}</input>\n'
+        elif(self.repeatable == "list"):
+            string = f'<br>{self.cost()} {self.name}{self.apCost()}: '
+            intermediate = self.description
+            count = intermediate.count('*')
+            for _ in range(count):
+                string +=  intermediate[:intermediate.index("*")]
+                intermediate = intermediate[intermediate.index("*")+1:]
+                if(intermediate[0] == "("):
+                    intermediate = intermediate[1:]
+                    substring = intermediate[:intermediate.index(")")]
+                    intermediate = intermediate[intermediate.index(")")+1:]
+                else:
+                    substring = re.split("\W+",intermediate)[0]
+                    intermediate = intermediate[len(substring):]
+                string += f'<input type="checkbox" name ="{camelCase(self.name+substring)}">{substring}</input>'     
+            string += intermediate
+        return string
+
+    def cost(self):
+        string = ""
+        for _ in range(self.costSP): string += self.symbol[self.typeSP]
+        return string
+
+    def apCost(self):
+        string = ""
+        if(self.costAP > 0):
+            string = " "
+            for _ in range(self.costAP): string += self.symbol["AP"]
+        if(self.costAPC > 0): 
+            string += " ("
+            for _ in range(self.costAPC): string += self.symbol["AP"]
+            string += ")"
         return string
 
 table.pop(0)
@@ -150,7 +200,7 @@ while(len(table)>0):
         abilities.append(Ability_Type(table[0][0],table[0][1],table[0][2],table[0][3],table[0][4],table[0][5],table[0][13]))
         table.pop(0)
         while(len(table[0][6]) > 0):
-            subtype = Subtype(table[0][6],table[0][8],table[0][9],table[0][10],table[0][11],table[0][12],table[0][13])
+            subtype = Subtype(table[0][6],table[0][8],table[0][9],table[0][11],table[0][12],table[0][13])
             table.pop(0)
             while(len(table[0][7]) > 0):
                 subtype.modifier(table[0][7],table[0][8],table[0][9],table[0][10],table[0][11],table[0][12],table[0][13])
@@ -206,12 +256,18 @@ for key in sourceDict:
         repeating_abilities += "            <option value=\"" + ability.name + "\">" + ability.name + "</option>\n"
     repeating_abilities += "        </select>\n    </span>\n"
 repeating_abilities += "\n  <br>Ability Subtype: \n"
+repeating_subtypes = ""
 for ability in abilities:
     repeating_abilities += "    <span class=\"" + ability.name + "\">\n        <select name=\"attr_abilitySubtype" + ability.name + "\" class =\"abilitySubType " + ability.name + "\">\n            <option value=\"None\" selected=\"selected\"></option>\n"
     for subtype in ability.subtypes:
-        repeating_abilities += "            <option value=\"" + subtype.name + "\">" + subtype.name + "</option>\n"
+        repeating_abilities += "            <option value=\"" + subtype.name + "\">" + subtype.roll20() + "</option>\n"
+        repeating_subtypes += "    <span class=\""+subtype.name.replace(" ","-")+"\">\n"
+        for modifier in subtype.modifiers:
+            repeating_subtypes += "        " + modifier.roll20()
+        repeating_subtypes += "    </span>\n"
     repeating_abilities += "        </select>\n    </span>\n"
 html.insert(repeating_abilities_index+1,repeating_abilities)
+html.insert(repeating_abilities_index+2,repeating_subtypes)
 
 #write repeating_abilities javascript
 repeating_abilities_index = html.index("  <!--Repeating_abilities script:-->")
@@ -266,6 +322,10 @@ for source in sourceDict:
 }}\n''')
 for ability in abilities:
     repeating_abilities += f'''.charsheet  input.abilityType:not([value="{ability.name}"]) ~ div.editor > span.{ability.name} {{
+    display: none
+}}\n'''
+    for subtype in ability.subtypes:
+        repeating_abilities += f'''.charsheet  input.abilitySubtype:not([value="{subtype.name}"]) ~ div.editor > span.{subtype.name.replace(" ","-")} {{
     display: none
 }}\n'''
 
