@@ -246,29 +246,29 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     <span class="Maneuvers">
         <select name="attr_abilitySubtypeManeuvers" class ="abilitySubType Maneuvers">
             <option value="None" selected="selected"></option>
-            <option value="Exploits"> Exploits</option>
-            <option value="Stunts"> Stunts</option>
+            <option value="Exploits">◩ Exploits♢</option>
+            <option value="Stunt">◩ Stunt</option>
         </select>
     </span>
     <span class="Psionics">
         <select name="attr_abilitySubtypePsionics" class ="abilitySubType Psionics">
             <option value="None" selected="selected"></option>
-            <option value="Telepathy"> Telepathy</option>
-            <option value="Telekinesis"> Telekinesis</option>
+            <option value="Telepathy">◩ Telepathy</option>
+            <option value="Telekinesis">◩◩ Telekinesis♢ (♢)</option>
         </select>
     </span>
     <span class="Rejuvenation">
         <select name="attr_abilitySubtypeRejuvenation" class ="abilitySubType Rejuvenation">
             <option value="None" selected="selected"></option>
-            <option value="HP"> HP</option>
-            <option value="Mild Conditions"> Mild Conditions</option>
+            <option value="Heal">◩◩ Heal♢♢</option>
+            <option value="Treat">◩◩◩ Treat♢♢</option>
         </select>
     </span>
     <span class="Scourge">
         <select name="attr_abilitySubtypeScourge" class ="abilitySubType Scourge">
             <option value="None" selected="selected"></option>
-            <option value="Against Skill Checks"> Against Skill Checks</option>
-            <option value="Status Condition"> Status Condition</option>
+            <option value="Inhibit">◩◩ Inhibit♢♢</option>
+            <option value="Harm">◩◩◩◩ Harm♢♢♢</option>
         </select>
     </span>
 
@@ -279,7 +279,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
         <br>◩◩◩<input type="checkbox" name="homingShot"> Homing Shot: attack without line of sight</input>
         <br>◩◩<input type="number" name="seasoned"  step="1" value="0" min="0" max="10"> Seasoned: reroll <= *1 on your φd when attacking.</input>
         <br>◩◩<input type="checkbox" name="piercing"> Piercing: ignore resistance to chosen damage type.</input>
-        <br>□□<input type="number" name="burst"  step="1" value="0" min="0" max="10"> Burst: additional + *1φd damage</input>
+        <br>□□<input type="number" name="burst"  step="1" value="0" min="0" max="10"> Burst: Do an additional + *1φd damage (on the first turn).</input>
     </span>
     <span class="Shield">
         <br>◩<input type="checkbox" name="barrier"> Barrier: Target adds φd to its defense rolls.</input>
@@ -357,22 +357,49 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
         <br>■■<input type="checkbox" name="createCircle"> Create Circle ♢♢♢: Create a permanent teleportation circle at a location.</input>
     </span>
     <span class="Exploits">
+        <br>◩<input type="checkbox" name="grapple"> Grapple: Prevent an opponent from moving</input>
+        <br>◩◩◩<input type="checkbox" name="delay"> Delay ♢: Remove one Action Point from your opponent's next turn.</input>
+        <br>◩◩<input type="checkbox" name="displace"> Displace: Shift an opponent's location</input>
+        <br>◩◩◩<input type="checkbox" name="cleave"> Cleave ♢: Roll a basic Attack against every adjacent enemy.</input>
+        <br>□<input type="checkbox" name="riposte"> Riposte: Roll a basic Attack against someone who just harmed you.</input>
     </span>
-    <span class="Stunts">
+    <span class="Stunt">
+        <br>□<input type="number" name="dodge"  step="1" value="0" min="0" max="10"> Dodge: Roll *1 additional defense die against an attack</input>
+        <br>◩<input type="checkbox" name="leap"> Leap ♢: Jump, but more impressively</input>
+        <br>◩◩<input type="checkbox" name="scale"> Scale ♢: Climb a difficult surface</input>
     </span>
     <span class="Telepathy">
+        <br>◩◩◩<input type="checkbox" name="expandSenses"> Expand Senses ♢♢: Line of sight requirement removed.</input>
+        <br>◩◩<input type="number" name="network"  step="1" value="0" min="0" max="10"> Network ♢: Target an additional creature.</input>
+        <br>□□□□<input type="checkbox" name="readMind"> Read Mind ♢♢ (♢): Delve into the target creature's thoughts.</input>
+        <br>□□□□□□<input type="checkbox" name="manipulate"> Manipulate ♢♢♢ (♢♢): Temporarily alter the target creature's behavior.</input>
     </span>
     <span class="Telekinesis">
+        <br>◩◩◩<input type="checkbox" name="empower"> Empower ♢: Move a large object.</input>
+        <br>◩◩◩◩◩<input type="checkbox" name="holdCreature"> Hold Creature ♢♢ (♢): Move a living creature.</input>
+        <br>□□<input type="number" name="reach"  step="1" value="0" min="0" max="10"> Reach ♢: Increase range by *5 hexes.</input>
     </span>
-    <span class="HP">
+    <span class="Heal">
+        <br>◩◩◩◩<input type="checkbox" name="greaterHealing"> Greater Healing: +1φd worth</input>
+        <br>◩◩◩<input type="checkbox" name="lingering"> Lingering ♢ (♢): Target continues to heal on each of your turns</input>
+        <br>◩◩◩◩<input type="checkbox" name="restore"> Restore ♢♢♢♢: Fully restore a small group to fighting condition</input>
+        <br>□□□<input type="number" name="burst"  step="1" value="0" min="0" max="10"> Burst: Do an additional +*1φd healing (on the first turn)</input>
     </span>
-    <span class="Mild-Conditions">
+    <span class="Treat">
+        <br>◩◩<input type="checkbox" name="remedy"> Remedy ♢: Remove a minor condition</input>
+        <br>◩◩◩◩<input type="checkbox" name="splint"> Splint: Suppress a major or permanent condition</input>
+        <br>□□□□□□<input type="checkbox" name="cure"> Cure ♢: Remove a major condition</input>
+        <br>■■■■■■<input type="checkbox" name="restore"> Restore ♢♢♢♢: Remove a permanent condition</input>
     </span>
-    <span class="Against-Skill-Checks">
-        <br><input type="checkbox" name="lingering"> Lingering: </input>
+    <span class="Inhibit">
+        <br>◩◩◩<input type="checkbox" name="lingering"> Lingering (♢): </input>
+        <br>◩◩<input type="checkbox" name="ineptDefense"> Inept Defense ♢♢ (♢): Target makes defense checks with disadvantage</input>
+        <br>◩◩<input type="number" name="ranged"  step="1" value="0" min="0" max="10"> Ranged ♢: Extend range by *1 hex</input>
     </span>
-    <span class="Status-Condition">
-        <br><input type="checkbox" name="lingering"> Lingering: </input>
+    <span class="Harm">
+        <br>◩◩◩◩<input type="checkbox" name="festering"> Festering (♢): Extend the duration of the Condition</input>
+        <br>□□□□□□<input type="checkbox" name="afflict"> Afflict: Apply a Major Condition</input>
+        <br>■■■■■■<input type="checkbox" name="corrupt"> Corrupt ♢: Apply a Permanent Condition</input>
     </span>
 
     <!--repeating_abilities code above this will be modified by script-->
@@ -667,6 +694,7 @@ Mundane <input type="number" class="editor hidden" name="attr_mundane" step="2" 
     });
 });
 -->
+
 
 
 

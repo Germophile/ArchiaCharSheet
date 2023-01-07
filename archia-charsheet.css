@@ -204,7 +204,7 @@
 .charsheet  input.abilitySubtype:not([value="Exploits"]) ~ div.editor > span.Exploits {
     display: none
 }
-.charsheet  input.abilitySubtype:not([value="Stunts"]) ~ div.editor > span.Stunts {
+.charsheet  input.abilitySubtype:not([value="Stunt"]) ~ div.editor > span.Stunt {
     display: none
 }
 .charsheet  input.abilityType:not([value="Psionics"]) ~ div.editor > span.Psionics {
@@ -219,19 +219,19 @@
 .charsheet  input.abilityType:not([value="Rejuvenation"]) ~ div.editor > span.Rejuvenation {
     display: none
 }
-.charsheet  input.abilitySubtype:not([value="HP"]) ~ div.editor > span.HP {
+.charsheet  input.abilitySubtype:not([value="Heal"]) ~ div.editor > span.Heal {
     display: none
 }
-.charsheet  input.abilitySubtype:not([value="Mild Conditions"]) ~ div.editor > span.Mild-Conditions {
+.charsheet  input.abilitySubtype:not([value="Treat"]) ~ div.editor > span.Treat {
     display: none
 }
 .charsheet  input.abilityType:not([value="Scourge"]) ~ div.editor > span.Scourge {
     display: none
 }
-.charsheet  input.abilitySubtype:not([value="Against Skill Checks"]) ~ div.editor > span.Against-Skill-Checks {
+.charsheet  input.abilitySubtype:not([value="Inhibit"]) ~ div.editor > span.Inhibit {
     display: none
 }
-.charsheet  input.abilitySubtype:not([value="Status Condition"]) ~ div.editor > span.Status-Condition {
+.charsheet  input.abilitySubtype:not([value="Harm"]) ~ div.editor > span.Harm {
     display: none
 }
 
